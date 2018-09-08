@@ -80,7 +80,11 @@ public class MainActivity extends AppCompatActivity
            changeFragment(new Calendar());
         } else if (id == R.id.nav_news) {
            changeFragment(new NewsFragment());
-        } else if (id == R.id.nav_events) {
+        }
+       else if (id == R.id.nav_notes) {
+           changeFragment(new Notes());
+       }
+       else if (id == R.id.nav_events) {
            changeFragment(new Events());
         } else if (id == R.id.nav_routines) {
            changeFragment(new Routines());

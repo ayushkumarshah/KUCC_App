@@ -8,6 +8,10 @@
             android:icon="@drawable/icon_news"
             android:title="News" />
         <item
+            android:id="@+id/nav_notes"
+            android:icon="@drawable/icon_notes"
+            android:title="Notes" />
+        <item
             android:id="@+id/nav_calendar"
             android:icon="@drawable/icon_calendar"
             android:title="Calendar" />
