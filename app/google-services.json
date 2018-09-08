@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "349544969143",
+    "firebase_url": "https://kuccapp.firebaseio.com",
+    "project_id": "kuccapp",
+    "storage_bucket": "kuccapp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:349544969143:android:62fcb1cc97a563c8",
+        "android_client_info": {
+          "package_name": "np.edu.ku.kucc"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "349544969143-rhkd7ncvpdnf7nkgc3hhv5upog4d5qms.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "np.edu.ku.kucc",
+            "certificate_hash": "6703ef04ab6f7ab99c68de16cf98ae61e77c640d"
+          }
+        },
+        {
+          "client_id": "349544969143-0jvdgsh2nh8fvboca8131sj19mdnhgnn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDGCq7uxsErPT8ahzJCu6t1MSEUMiDdSWA"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "349544969143-0jvdgsh2nh8fvboca8131sj19mdnhgnn.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
