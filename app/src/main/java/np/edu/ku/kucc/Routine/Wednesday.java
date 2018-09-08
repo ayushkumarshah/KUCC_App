@@ -10,6 +10,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,6 +27,9 @@ import np.edu.ku.kucc.R;
 public class Wednesday extends Fragment {
     private List<routinelist> list;
     private RecyclerView mRecyclerView;
+    FirebaseDatabase mDatabase;
+    DatabaseReference mDatabaseReference;
+
 
 
     public Wednesday() {
@@ -32,40 +41,41 @@ public class Wednesday extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view=inflater.inflate(R.layout.fragment_wednesday, container, false);
+        final View view=inflater.inflate(R.layout.fragment_wednesday, container, false);
         mRecyclerView=(RecyclerView) view.findViewById(R.id.recyclerwednesday);
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         list=new ArrayList<routinelist>();
+        //Firebase RealTime Database
+        mDatabase= MyDatabaseUtils.getDatabase();
+        mDatabaseReference=mDatabase.getReference().child("Routines").child("CE").child("1Y1S").child("Wednesday");
+        mDatabaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()){
+                    for (DataSnapshot dataSnapshot1:dataSnapshot.getChildren())
+                    {
+                        routinelist routinelistobj=dataSnapshot1.getValue(routinelist.class);
+                        list.add(routinelistobj);
+                        mRecyclerView = (RecyclerView) view.findViewById(R.id.recyclerwednesday);
+                        mRecyclerView.setHasFixedSize(true);
 
-        list.add(
-                new routinelist(
-                        "COMP 201",
-                        "computer",
-                        "Ayush",
-                        "9:00"
-                ));
+                        mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+                        //creating recyclerview adapter
+                        RecyclerViewAdapter adapter = new RecyclerViewAdapter(getContext(), list);
 
-        list.add(
-                new routinelist(
-                        "COMP 301",
-                        "Math",
-                        "Shoaib",
-                        "10:00"
-                ));
+                        //setting adapter to recyclerview
+                        mRecyclerView.setAdapter(adapter);
 
-        list.add(
-                new routinelist(
-                        "COMP 401",
-                        "Microsoft Surface Pro 4 Core m3 6th Gen - (4 GB/128 GB SSD/Windows 10)",
-                        "13.3 inch, Silver, 1.35 kg",
-                        "11:00"
-                ));
+                    }
+                }
+            }
 
-        RecyclerViewAdapter adapter1=new RecyclerViewAdapter(getContext(),list);
-        mRecyclerView.setAdapter(adapter1);
-        Log.d("LISTTT", list.toString());
-        //Toast.makeText(getContext(),"sad",Toast.LENGTH_LONG).show();
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
         return view;
     }
 

@@ -3,6 +3,9 @@ package np.edu.ku.kucc.Routine;
 public class routinelist {
     private String Course_Id, Course_Name, Course_Inst, Course_Time;
 
+    public routinelist() {
+    }
+
     public routinelist(String course_Id, String course_Name, String course_Inst, String course_Time) {
         Course_Id = course_Id;
         Course_Name = course_Name;
