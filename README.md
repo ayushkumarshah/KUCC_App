@@ -11,7 +11,7 @@ Notes for all semesters
 Annual Calendar with all events
 News
 Events
-Ability to mark going/not going/interested
+Ability to mark going,not going,interested
 Course Info
 KUCC member registration
 Teacher Info
