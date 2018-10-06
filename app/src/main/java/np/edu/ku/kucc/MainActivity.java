@@ -14,6 +14,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import np.edu.ku.kucc.Account.Profile;
+import np.edu.ku.kucc.Database.SharedPref;
 import np.edu.ku.kucc.Routine.Routines;
 
 public class MainActivity extends AppCompatActivity
@@ -37,6 +38,13 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         changeFragment(new NewsFragment());
+    }
+    @Override
+    protected void onStart() {
+
+        super.onStart();
+        SharedPref sharedPref=new SharedPref(getApplicationContext());
+        sharedPref.fuser();
     }
 
     @Override

@@ -1,7 +1,9 @@
 package np.edu.ku.kucc.Routine;
 
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -9,6 +11,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -45,9 +48,19 @@ public class Tuesday extends Fragment {
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         list=new ArrayList<routinelist>();
+        //CONVERSION
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
+        String Course= preferences.getString("Course", null);
+        String Year= preferences.getString("Year", null);
+        String Semester= preferences.getString("Semester", null);
+        Toast.makeText(getContext(), Course + " " + Year + " " + Semester,Toast.LENGTH_LONG).show();
+        Conversion conversion=new Conversion();
+        String mYearSem= conversion.YearSem(Year,Semester);
+        String mCourse=conversion.Course(Course);
+        Toast.makeText(getContext(), mYearSem + " " + mCourse ,Toast.LENGTH_LONG).show();
         //Firebase RealTime Database
         mDatabase= MyDatabaseUtils.getDatabase();
-        mDatabaseReference=mDatabase.getReference().child("Routines").child("CE").child("1Y1S").child("Tuesday");
+        mDatabaseReference=mDatabase.getReference().child("Routines").child(mCourse).child(mYearSem).child("Tuesday");
         mDatabaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {

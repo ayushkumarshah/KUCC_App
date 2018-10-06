@@ -13,4 +13,7 @@
     <string name="Course_Name">CourseName</string>
     <string name="Course_Instru">CourseInstructor</string>
     <string name="Course_Time">Time</string>
+    <string name="select_year">Select Year</string>
+    <string name="select_semester">Select Semester</string>
+    <string name="select_course">Select Course</string>
 </resources>

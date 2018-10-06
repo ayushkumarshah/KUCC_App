@@ -1,7 +1,9 @@
 package np.edu.ku.kucc.Routine;
 
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -31,6 +33,7 @@ import com.google.firebase.firestore.FirebaseFirestoreSettings;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.time.Year;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -122,10 +125,20 @@ public class Sunday extends Fragment {
                 });
            */
 
+        //TESTING
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
+        String Course= preferences.getString("Course", null);
+        String Year= preferences.getString("Year", null);
+        String Semester= preferences.getString("Semester", null);
+        Toast.makeText(getContext(), Course + " " + Year + " " + Semester,Toast.LENGTH_LONG).show();
+        Conversion conversion=new Conversion();
+        String mYearSem= conversion.YearSem(Year,Semester);
+        String mCourse=conversion.Course(Course);
+        Toast.makeText(getContext(), mYearSem + " " + mCourse ,Toast.LENGTH_LONG).show();
 
         //Firebase RealTime Database
         mDatabase= MyDatabaseUtils.getDatabase();
-        mDatabaseReference=mDatabase.getReference().child("Routines").child("CE").child("1Y1S").child("Sunday");
+        mDatabaseReference=mDatabase.getReference().child("Routines").child("CE").child(mYearSem).child("Sunday");
         mDatabaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -156,6 +169,7 @@ public class Sunday extends Fragment {
         return view;
 
     }
+
 
 
 }
