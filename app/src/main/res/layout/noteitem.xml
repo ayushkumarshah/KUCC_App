@@ -54,15 +54,15 @@
                 android:layout_toRightOf="@+id/coursename2"
                 android:text="Course Instructor" />
 
-            <TextView
+            <ImageButton
                 android:id="@+id/link"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="5dp"
                 android:layout_alignParentEnd="true"
-                android:layout_toRightOf="@+id/courseinstruc2"
-                android:text="Link"
-                android:layout_alignParentRight="true" />
+                android:layout_alignParentTop="true"
+                android:layout_marginEnd="4dp"
+                android:background="@null"
+                card_view:srcCompat="@drawable/download" />
 
         </RelativeLayout>
 
