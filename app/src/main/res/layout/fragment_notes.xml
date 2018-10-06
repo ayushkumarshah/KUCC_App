@@ -27,7 +27,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="16dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="22dp"
+        android:layout_marginTop="24dp"
         android:ems="10"
         android:inputType="textPersonName"
         android:text="Year"
@@ -51,15 +51,14 @@
         android:id="@+id/course_value"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="54dp"
         android:layout_marginEnd="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="30dp"
         android:text="TextView"
-        app:layout_constraintBottom_toTopOf="@+id/semester_value"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/Course"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -67,30 +66,33 @@
         android:id="@+id/year_value"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="12dp"
         android:layout_marginEnd="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
         android:text="TextView"
-        app:layout_constraintBottom_toTopOf="@+id/semester_value"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/Year" />
+        app:layout_constraintStart_toEndOf="@+id/Year"
+        app:layout_constraintTop_toBottomOf="@+id/course_value" />
 
     <Spinner
         android:id="@+id/semester_value"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="64dp"
+        android:layout_marginBottom="70dp"
         android:layout_marginEnd="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
         android:text="TextView"
         app:layout_constraintBottom_toTopOf="@+id/recyclernotes"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/Semester"
-        app:layout_constraintTop_toBottomOf="@+id/course_value" />
+        app:layout_constraintTop_toBottomOf="@+id/year_value"
+        app:layout_constraintVertical_bias="0.285" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recyclernotes"
@@ -105,16 +107,36 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/semester_value" />
+        app:layout_constraintTop_toBottomOf="@+id/notes_title" />
 
     <Button
         android:id="@+id/search"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="113dp"
-        android:layout_marginStart="113dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:text="Search"
-        app:layout_constraintStart_toStartOf="@+id/recyclernotes"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/Semester" />
+
+    <TextView
+        android:id="@+id/notes_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:text="TextView"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display2"
+        android:textSize="25dp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/search" />
 </android.support.constraint.ConstraintLayout>

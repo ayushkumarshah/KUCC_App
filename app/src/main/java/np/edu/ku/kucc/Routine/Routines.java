@@ -9,13 +9,21 @@ import android.support.annotation.RequiresApi;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 import android.widget.Toolbar;
 
+import np.edu.ku.kucc.MainActivity;
 import np.edu.ku.kucc.R;
+
+import static np.edu.ku.kucc.MainActivity.Course;
+import static np.edu.ku.kucc.MainActivity.Semester;
+import static np.edu.ku.kucc.MainActivity.Year;
+import static np.edu.ku.kucc.MainActivity.mCourse;
+import static np.edu.ku.kucc.MainActivity.mYearSem;
 
 
 /**
@@ -51,6 +59,20 @@ public class Routines extends Fragment {
                 (getChildFragmentManager(), tabLayout.getTabCount());
         viewPager.setAdapter(adapter);
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+        SharedPreferences preferences= PreferenceManager.getDefaultSharedPreferences(getContext());
+        Course= preferences.getString("Course", null);
+        Year= preferences.getString("Year", null);
+        Semester= preferences.getString("Semester", null);
+        Conversion conversion=new Conversion();
+        mYearSem= conversion.YearSem(Year,Semester);
+        mCourse=conversion.Course(Course);
+
+
+        Log.e("course", MainActivity.Course);
+        Log.e("year",MainActivity.Year);
+        Log.e("sem",MainActivity.Semester);
+        Log.e("sem",MainActivity.mYearSem);
+        Log.e("sem",MainActivity.mCourse);
         tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {

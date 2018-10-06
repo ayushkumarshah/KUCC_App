@@ -31,7 +31,7 @@ public class Batch extends AppCompatActivity {
         setContentView(R.layout.activity_batch);
         //Default Value
         mCourse="Computer Science";
-        mSemester="1st Semester";
+        mSemester="1st Sem";
         mYear="1st Year";
 
 
@@ -135,8 +135,8 @@ public class Batch extends AppCompatActivity {
         public void selectSemester(View v){
             final String[] items = new String[2];
 
-            items[0] = "1st Semester";
-            items[1] = "2nd Semester";
+            items[0] = "1st Sem";
+            items[1] = "2nd Sem";
 
             // Create List Dialog
             AlertDialog.Builder builder = new AlertDialog.Builder(Batch.this);

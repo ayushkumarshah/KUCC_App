@@ -40,13 +40,7 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-        SharedPreferences preferences= PreferenceManager.getDefaultSharedPreferences(this);
-        Course= preferences.getString("Course", null);
-        Year= preferences.getString("Year", null);
-        Semester= preferences.getString("Semester", null);
-        Conversion conversion=new Conversion();
-        mYearSem= conversion.YearSem(Year,Semester);
-        mCourse=conversion.Course(Course);
+
         changeFragment(new NewsFragment());
     }
     @Override
