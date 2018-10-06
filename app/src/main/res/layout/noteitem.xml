@@ -5,7 +5,7 @@
     android:layout_height="wrap_content">
 
     <android.support.v7.widget.CardView
-        android:id="@+id/cardView"
+        android:id="@+id/cardView2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         card_view:cardBackgroundColor="@android:color/white"
@@ -16,19 +16,19 @@
         card_view:layout_constraintTop_toTopOf="parent">
 
         <RelativeLayout
-            android:id="@+id/rel1"
+            android:id="@+id/rel12"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
 
             <TextView
-                android:id="@+id/courseid"
+                android:id="@+id/courseid2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
                 android:text="Course_ID" />
 
             <TextView
-                android:id="@+id/coursename"
+                android:id="@+id/coursename2"
                 android:layout_width="123dp"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"
@@ -38,11 +38,11 @@
                 android:layout_marginRight="5dp"
                 android:layout_marginStart="5dp"
                 android:layout_marginTop="5dp"
-                android:layout_toRightOf="@+id/courseid"
+                android:layout_toRightOf="@+id/courseid2"
                 android:text="CourseName" />
 
             <TextView
-                android:id="@+id/courseinstruc"
+                android:id="@+id/courseinstruc2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"
@@ -51,23 +51,18 @@
                 android:layout_marginRight="5dp"
                 android:layout_marginStart="5dp"
                 android:layout_marginTop="5dp"
-                android:layout_toRightOf="@+id/coursename"
+                android:layout_toRightOf="@+id/coursename2"
                 android:text="Course Instructor" />
 
             <TextView
-                android:id="@+id/time"
-                android:layout_width="40dp"
+                android:id="@+id/link"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_margin="5dp"
                 android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
-                android:layout_marginBottom="5dp"
-                android:layout_marginEnd="5dp"
-                android:layout_marginLeft="-3dp"
-                android:layout_marginRight="5dp"
-                android:layout_marginStart="5dp"
-                android:layout_marginTop="5dp"
-                android:layout_toRightOf="@+id/courseinstruc"
-                android:text="Time" />
+                android:layout_toRightOf="@+id/courseinstruc2"
+                android:text="Link"
+                android:layout_alignParentRight="true" />
 
         </RelativeLayout>
 

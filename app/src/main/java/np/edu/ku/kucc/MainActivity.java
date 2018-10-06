@@ -1,7 +1,9 @@
 package np.edu.ku.kucc;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.design.widget.NavigationView;
@@ -15,11 +17,13 @@ import android.view.MenuItem;
 
 import np.edu.ku.kucc.Account.Profile;
 import np.edu.ku.kucc.Database.SharedPref;
+import np.edu.ku.kucc.Notes_list.Notes;
+import np.edu.ku.kucc.Routine.Conversion;
 import np.edu.ku.kucc.Routine.Routines;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
-
+    public static String Course,Year,Semester,mYearSem,mCourse;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,7 +40,13 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-
+        SharedPreferences preferences= PreferenceManager.getDefaultSharedPreferences(this);
+        Course= preferences.getString("Course", null);
+        Year= preferences.getString("Year", null);
+        Semester= preferences.getString("Semester", null);
+        Conversion conversion=new Conversion();
+        mYearSem= conversion.YearSem(Year,Semester);
+        mCourse=conversion.Course(Course);
         changeFragment(new NewsFragment());
     }
     @Override

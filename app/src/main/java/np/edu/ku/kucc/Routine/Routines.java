@@ -1,8 +1,10 @@
 package np.edu.ku.kucc.Routine;
 
 
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -10,6 +12,7 @@ import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 import android.widget.Toolbar;
 
 import np.edu.ku.kucc.R;
@@ -40,6 +43,8 @@ public class Routines extends Fragment {
         tabLayout.addTab(tabLayout.newTab().setText("Fri"));
 
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
+
+
 
         final ViewPager viewPager = (ViewPager) view.findViewById(R.id.pager);
         final PagerAdapter adapter = new PagerAdapter

@@ -1,9 +1,7 @@
 package np.edu.ku.kucc.Routine;
 
 
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -11,7 +9,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -23,6 +20,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import np.edu.ku.kucc.R;
+
+import static np.edu.ku.kucc.MainActivity.mCourse;
+import static np.edu.ku.kucc.MainActivity.mYearSem;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -50,17 +50,6 @@ public class Monday extends Fragment {
         list=new ArrayList<routinelist>();
         //Firebase RealTime Database
         mDatabase= MyDatabaseUtils.getDatabase();
-        //CONVERSION
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
-        String Course= preferences.getString("Course", null);
-        String Year= preferences.getString("Year", null);
-        String Semester= preferences.getString("Semester", null);
-        Toast.makeText(getContext(), Course + " " + Year + " " + Semester,Toast.LENGTH_LONG).show();
-        Conversion conversion=new Conversion();
-        String mYearSem= conversion.YearSem(Year,Semester);
-        String mCourse=conversion.Course(Course);
-        Toast.makeText(getContext(), mYearSem + " " + mCourse ,Toast.LENGTH_LONG).show();
-
         mDatabaseReference=mDatabase.getReference().child("Routines").child(mCourse).child(mYearSem).child("Monday");
         mDatabaseReference.addValueEventListener(new ValueEventListener() {
             @Override
@@ -93,4 +82,3 @@ public class Monday extends Fragment {
     }
 
 }
-

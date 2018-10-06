@@ -15,39 +15,35 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.EventListener;
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.FirebaseFirestoreException;
-import com.google.firebase.firestore.FirebaseFirestoreSettings;
-import com.google.firebase.firestore.Query;
-import com.google.firebase.firestore.QuerySnapshot;
 
-import java.time.Year;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreSettings;
+
 import java.util.ArrayList;
 import java.util.List;
 
+import np.edu.ku.kucc.MainActivity;
+
 import np.edu.ku.kucc.R;
+
+import static np.edu.ku.kucc.MainActivity.mCourse;
+import static np.edu.ku.kucc.MainActivity.mYearSem;
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class Sunday extends Fragment {
     private List<routinelist> list;
+
+
     RecyclerView mRecyclerView;
     FirebaseDatabase mDatabase;
     DatabaseReference mDatabaseReference;
-
 
     public Sunday() {
         // Required empty public constructor
@@ -67,6 +63,8 @@ public class Sunday extends Fragment {
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         list=new ArrayList<routinelist>();
+
+
         /*
 
         list.add(
@@ -126,19 +124,12 @@ public class Sunday extends Fragment {
            */
 
         //TESTING
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
-        String Course= preferences.getString("Course", null);
-        String Year= preferences.getString("Year", null);
-        String Semester= preferences.getString("Semester", null);
-        Toast.makeText(getContext(), Course + " " + Year + " " + Semester,Toast.LENGTH_LONG).show();
-        Conversion conversion=new Conversion();
-        String mYearSem= conversion.YearSem(Year,Semester);
-        String mCourse=conversion.Course(Course);
+
         Toast.makeText(getContext(), mYearSem + " " + mCourse ,Toast.LENGTH_LONG).show();
 
         //Firebase RealTime Database
         mDatabase= MyDatabaseUtils.getDatabase();
-        mDatabaseReference=mDatabase.getReference().child("Routines").child("CE").child(mYearSem).child("Sunday");
+        mDatabaseReference=mDatabase.getReference().child("Routines").child(mCourse).child(mYearSem).child("Sunday");
         mDatabaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {

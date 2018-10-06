@@ -20,26 +20,10 @@ public class Conversion {
 
     public String YearSem(String year, String semester) {
         String YearSem = null;
-        if (year.equals("1st Year") && semester.equals("1st Semester"))
-        {
-            YearSem="1Y1S";
-        }
-        else if (year.equals("2nd Year") && semester.equals("1st Semester"))
-        {
-            YearSem="2Y1S";
-        }
-        else if (year.equals("3rd Year") && semester.equals("1st Semester"))
-        {
-            YearSem="3Y1S";
-        }
-        else if(year.equals("4th Year") && semester.equals("1st Semester"))
-        {
-            YearSem="4Y1S";
-        }
-        else
-        {
-            YearSem=null;
-        }
+        String Year=year.substring(0,1);
+        String Sem=semester.substring(0,1);
+        YearSem=Year+"Y"+Sem+"S";
+
         return YearSem;
 
     }
