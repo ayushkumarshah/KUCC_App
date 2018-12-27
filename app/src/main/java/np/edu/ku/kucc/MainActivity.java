@@ -14,6 +14,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 
 import np.edu.ku.kucc.Account.Profile;
 import np.edu.ku.kucc.Database.SharedPref;
@@ -24,6 +27,8 @@ import np.edu.ku.kucc.Routine.Routines;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     public static String Course,Year,Semester,mYearSem,mCourse;
+    private WebView web;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,6 +45,19 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+
+        View headerView = navigationView.getHeaderView(0);
+        web=(WebView)headerView.findViewById(R.id.web);
+        web.setVerticalScrollBarEnabled(true);
+        web.setHorizontalScrollBarEnabled(true);
+        web.getSettings().setJavaScriptEnabled(true);
+        web.setWebViewClient(new WebViewClient());
+        web.getSettings().setLoadWithOverviewMode(true);
+        web.getSettings().setUseWideViewPort(true);
+//        web.loadUrl("file:///android_asset/sample.html");
+        web.loadUrl("http://192.168.100.71:8080/index.svg");
+
 
         changeFragment(new NewsFragment());
     }

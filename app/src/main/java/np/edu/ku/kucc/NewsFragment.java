@@ -6,6 +6,8 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 
 
 /**
@@ -13,7 +15,7 @@ import android.view.ViewGroup;
  */
 public class NewsFragment extends Fragment {
 
-
+private WebView webView;
     public NewsFragment() {
         // Required empty public constructor
     }
@@ -22,8 +24,16 @@ public class NewsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+        View root=inflater.inflate(R.layout.fragment_news, container, false);
+        webView=(WebView)root.findViewById(R.id.webview);
+        webView.getSettings().setJavaScriptEnabled(true);
+        webView.setWebViewClient(new WebViewClient());
+        webView.loadUrl("http://ku.edu.np/kucc/#/news");
+
+
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_news, container, false);
+        return root;
     }
 
 }
