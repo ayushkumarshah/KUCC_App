@@ -47,7 +47,7 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
 
-        View headerView = navigationView.getHeaderView(0);
+       /* View headerView = navigationView.getHeaderView(0);
         web=(WebView)headerView.findViewById(R.id.web);
         web.setVerticalScrollBarEnabled(true);
         web.setHorizontalScrollBarEnabled(true);
@@ -57,7 +57,7 @@ public class MainActivity extends AppCompatActivity
         web.getSettings().setUseWideViewPort(true);
 //        web.loadUrl("file:///android_asset/sample.html");
         web.loadUrl("http://192.168.100.71:8080/index.svg");
-
+*/
 
         changeFragment(new NewsFragment());
     }
