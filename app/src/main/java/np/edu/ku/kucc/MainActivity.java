@@ -1,9 +1,7 @@
 package np.edu.ku.kucc;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.design.widget.NavigationView;
@@ -14,14 +12,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.webkit.WebView;
-import android.webkit.WebViewClient;
 
 import np.edu.ku.kucc.Account.Profile;
 import np.edu.ku.kucc.Database.SharedPref;
+import np.edu.ku.kucc.News_package.NewsFragment;
 import np.edu.ku.kucc.Notes_list.Notes;
-import np.edu.ku.kucc.Routine.Conversion;
 import np.edu.ku.kucc.Routine.Routines;
 
 public class MainActivity extends AppCompatActivity
