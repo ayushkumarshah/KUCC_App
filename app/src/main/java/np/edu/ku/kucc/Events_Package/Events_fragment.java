@@ -1,4 +1,4 @@
-package np.edu.ku.kucc;
+package np.edu.ku.kucc.Events_Package;
 
 
 import android.os.Bundle;
@@ -7,14 +7,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import np.edu.ku.kucc.R;
+
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class Events extends Fragment {
+public class Events_fragment extends Fragment {
 
 
-    public Events() {
+    public Events_fragment() {
         // Required empty public constructor
     }
 

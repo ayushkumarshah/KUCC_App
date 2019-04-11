@@ -1,6 +1,7 @@
 package np.edu.ku.kucc;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -17,6 +18,7 @@ import android.webkit.WebView;
 import np.edu.ku.kucc.Account.Profile;
 import np.edu.ku.kucc.Communities_package.Communities_Fragment;
 import np.edu.ku.kucc.Database.SharedPref;
+import np.edu.ku.kucc.Events_Package.Events_fragment;
 import np.edu.ku.kucc.Faculty_package.Faculty_fragment;
 import np.edu.ku.kucc.KUCCBoard_package.KUCCBoard_Fragment;
 import np.edu.ku.kucc.News_package.NewsFragment;
@@ -122,7 +124,7 @@ public class MainActivity extends AppCompatActivity
            changeFragment(new Notes());
        }
        else if (id == R.id.nav_events) {
-           changeFragment(new Events());
+           changeFragment(new Events_fragment());
         } else if (id == R.id.nav_routines) {
            changeFragment(new Routines());
         } else if (id == R.id.nav_courseinfo) {
@@ -143,6 +145,9 @@ public class MainActivity extends AppCompatActivity
        else if (id == R.id.nav_profile) {
            changeFragment(new Profile());
        } else if (id == R.id.nav_visit) {
+           Uri uri = Uri.parse("http://ku.edu.np/kucc/#/"); // missing 'http://' will cause crashed
+           Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+           startActivity(intent);
 
        }
        else if (id == R.id.nav_reviews) {
