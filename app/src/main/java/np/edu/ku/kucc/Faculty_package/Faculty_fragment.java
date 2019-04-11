@@ -53,7 +53,18 @@ public class Faculty_fragment extends Fragment {
         View rootview=inflater.inflate(R.layout.fragment_faculty, container, false);
         context = rootview.getContext();
         activity = getActivity();
-        getData();
+        if (CheckInternetConnection(context))
+        {
+
+            getData();
+
+        }
+        else
+        {
+            BackgroundTask backgroundTask=new BackgroundTask(context);
+            backgroundTask.execute("get_info");
+        }
+
         list = (ListView) rootview.findViewById(R.id.faculty_list);
         return rootview;
     }
