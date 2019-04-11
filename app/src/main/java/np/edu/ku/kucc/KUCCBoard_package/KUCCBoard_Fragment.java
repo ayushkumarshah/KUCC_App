@@ -1,4 +1,4 @@
-package np.edu.ku.kucc;
+package np.edu.ku.kucc.KUCCBoard_package;
 
 
 import android.os.Bundle;
@@ -7,14 +7,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import np.edu.ku.kucc.R;
+
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class AboutKUCC extends Fragment {
+public class KUCCBoard_Fragment extends Fragment {
 
 
-    public AboutKUCC() {
+    public KUCCBoard_Fragment() {
         // Required empty public constructor
     }
 
@@ -23,7 +25,7 @@ public class AboutKUCC extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_about_kucc, container, false);
+        return inflater.inflate(R.layout.fragment_kucc_board, container, false);
     }
 
 }

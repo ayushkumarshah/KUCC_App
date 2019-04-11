@@ -15,7 +15,10 @@ import android.view.MenuItem;
 import android.webkit.WebView;
 
 import np.edu.ku.kucc.Account.Profile;
+import np.edu.ku.kucc.Communities_package.Communities_Fragment;
 import np.edu.ku.kucc.Database.SharedPref;
+import np.edu.ku.kucc.Faculty_package.Faculty_fragment;
+import np.edu.ku.kucc.KUCCBoard_package.KUCCBoard_Fragment;
 import np.edu.ku.kucc.News_package.NewsFragment;
 import np.edu.ku.kucc.Notes_list.Notes;
 import np.edu.ku.kucc.Routine.Routines;
@@ -125,10 +128,10 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_courseinfo) {
            changeFragment(new Course_info());
         } else if (id == R.id.nav_teacherinfo) {
-           changeFragment(new Teacher_info());
+           changeFragment(new Faculty_fragment());
         }
         else if (id == R.id.nav_aboutkucc) {
-           changeFragment(new AboutKUCC());
+           changeFragment(new KUCCBoard_Fragment());
         }
          else if (id == R.id.nav_share) {
 
@@ -144,6 +147,9 @@ public class MainActivity extends AppCompatActivity
        }
        else if (id == R.id.nav_reviews) {
            changeFragment(new Reviews());
+       }
+       else if (id == R.id.nav_communities) {
+           changeFragment(new Communities_Fragment());
        }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

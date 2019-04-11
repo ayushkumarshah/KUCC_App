@@ -35,7 +35,7 @@
         <item
             android:id="@+id/nav_aboutkucc"
             android:icon="@drawable/icon_info"
-            android:title="About KUCC" />
+            android:title="KUCC" />
         <item
             android:id="@+id/nav_share"
             android:icon="@drawable/icon_share"
@@ -56,7 +56,11 @@
                 android:title="Course Info" />
             <item
                 android:id="@+id/nav_teacherinfo"
-                android:title="Teacher Info" />
+                android:title="Faculty" />
+
+            <item
+                android:id="@+id/nav_communities"
+                android:title="Communities" />
 
         </menu>
     </item>

@@ -1,4 +1,4 @@
-package np.edu.ku.kucc.News_package;
+package np.edu.ku.kucc.Faculty_package;
 
 import android.app.Activity;
 import android.content.Context;
@@ -14,12 +14,12 @@ import np.edu.ku.kucc.R;
  * Created by ayush on 12/14/17.
  */
 
-public class BackgroundTask extends AsyncTask<String,News,String> {
+public class BackgroundTask extends AsyncTask<String,Faculty,String> {
 
     Context ctx;
-    NewsAdapter newsAdapter;
+    FacultyAdapter facultyAdapter;
     Activity activity;
-ListView listView;
+    ListView listView;
     BackgroundTask(Context ctx)
     {
         this.ctx=ctx;
@@ -34,22 +34,22 @@ ListView listView;
     public String doInBackground(String... params) {
 
         String method=params[0];
-        NewsDatabase myDB=new NewsDatabase(ctx);
+        FacultyDatabase myDB=new FacultyDatabase(ctx);
         if (method.equals("get_info"))
         {
-            listView=(ListView)activity.findViewById(R.id.news_list);
-            newsAdapter=new NewsAdapter(ctx,R.layout.list_single_news);
+            listView=(ListView)activity.findViewById(R.id.faculty_list);
+            facultyAdapter=new FacultyAdapter(ctx,R.layout.list_single_faculty);
             SQLiteDatabase db=myDB.getReadableDatabase();
             Cursor cursor=myDB.getInfo(db);
-            String title,date,info,link,imageURL;
+            String name,designation,email,link,imageURL;
             while (cursor.moveToNext()) {
-                title = cursor.getString(cursor.getColumnIndex(NewsDatabase.COL_1));
-                date = cursor.getString(cursor.getColumnIndex(NewsDatabase.COL_2));
-                info = cursor.getString(cursor.getColumnIndex(NewsDatabase.COL_3));
-                link = cursor.getString(cursor.getColumnIndex(NewsDatabase.COL_4));
-                imageURL = cursor.getString(cursor.getColumnIndex(NewsDatabase.COL_5));
-                News news=new News(title,date,info,link,imageURL);
-                publishProgress(news);
+                name = cursor.getString(cursor.getColumnIndex(FacultyDatabase.COL_1));
+                designation = cursor.getString(cursor.getColumnIndex(FacultyDatabase.COL_2));
+                email = cursor.getString(cursor.getColumnIndex(FacultyDatabase.COL_3));
+                link = cursor.getString(cursor.getColumnIndex(FacultyDatabase.COL_4));
+                imageURL = cursor.getString(cursor.getColumnIndex(FacultyDatabase.COL_5));
+                Faculty faculty=new Faculty(name,designation,email,link,imageURL);
+                publishProgress(faculty);
 
             }
             return "get_info";
@@ -58,9 +58,9 @@ ListView listView;
     }
 
     @Override
-    public void onProgressUpdate(News... values) {
+    public void onProgressUpdate(Faculty... values) {
 
-        newsAdapter.add(values[0]);
+        facultyAdapter.add(values[0]);
 
     }
 
@@ -68,8 +68,8 @@ ListView listView;
     public void onPostExecute(String result) {
 
         if (result.equals("get_info")) {
-            if (newsAdapter != null)
-                listView.setAdapter(newsAdapter);
+            if (facultyAdapter != null)
+                listView.setAdapter(facultyAdapter);
             else
                 Toast.makeText(ctx, "No offline data", Toast.LENGTH_LONG).show();
         }

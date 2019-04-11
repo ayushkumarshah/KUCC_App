@@ -1,4 +1,4 @@
-package np.edu.ku.kucc.News_package;
+package np.edu.ku.kucc.Faculty_package;
 
 
 import android.app.Activity;
@@ -12,7 +12,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.webkit.WebView;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -26,13 +25,14 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+
 import np.edu.ku.kucc.R;
 
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class NewsFragment extends Fragment {
+public class Faculty_fragment extends Fragment {
 
     Context context;
     Activity activity;
@@ -41,8 +41,7 @@ public class NewsFragment extends Fragment {
     private ProgressDialog loading;
     JSONArray jsonArray;
     JSONObject jsonObject;
-//private WebView webView;
-    public NewsFragment() {
+    public Faculty_fragment() {
         // Required empty public constructor
     }
 
@@ -50,19 +49,12 @@ public class NewsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
-        View rootview=inflater.inflate(R.layout.fragment_news, container, false);
-//        webView=(WebView)root.findViewById(R.id.webview);
-//        webView.getSettings().setJavaScriptEnabled(true);
-//        webView.setWebViewClient(new WebViewClient());
-//        webView.loadUrl("http://ku.edu.np/kucc/#/news");
-
+        // Inflate the layout for this fragment
+        View rootview=inflater.inflate(R.layout.fragment_faculty, container, false);
         context = rootview.getContext();
         activity = getActivity();
         getData();
-        list = (ListView) rootview.findViewById(R.id.news_list);
-
-        // Inflate the layout for this fragment
+        list = (ListView) rootview.findViewById(R.id.faculty_list);
         return rootview;
     }
 
@@ -98,7 +90,7 @@ public class NewsFragment extends Fragment {
         try {
             jsonObject = new JSONObject(response);
             Log.e("response:",(jsonObject.toString()));
-            jsonArray=jsonObject.getJSONArray("news");
+            jsonArray=jsonObject.getJSONArray("faculty");
             Log.e("response:",(jsonArray.toString()));
             updateDataBase(jsonArray);
 
@@ -109,9 +101,9 @@ public class NewsFragment extends Fragment {
         }
     }
     private void updateDataBase(JSONArray json) {
-        NewsDatabase myDB=new NewsDatabase(this.activity);
+        FacultyDatabase myDB=new FacultyDatabase(this.activity);
         myDB.dropDatabase();
-        Log.v("iamat","newsdatabase");
+        Log.v("iamat","facultydatabase");
 
         Log.e("length",Integer.toString(json.length()));
 

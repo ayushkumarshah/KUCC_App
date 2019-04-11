@@ -1,4 +1,4 @@
-package np.edu.ku.kucc.News_package;
+package np.edu.ku.kucc.KUCCBoard_package;
 
 /**
  * Created by ayush on 8/13/17.
@@ -16,15 +16,15 @@ import android.util.Log;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import np.edu.ku.kucc.Faculty_package.FacultyDatabase;
+import np.edu.ku.kucc.News_package.NewsDatabase;
 
 
-public class NewsDatabase extends SQLiteOpenHelper {
+public class KUCCBoardDatabase extends SQLiteOpenHelper {
     public static final String DATABASE_NAME = "KUCC.db";
-    public static final String TABLE_NAME = "News";
-    public static final String COL_1 = "title";
-    public static final String COL_2 = "date";
-    public static final String COL_3 = "info";
+    public static final String TABLE_NAME = "Faculty";
+    public static final String COL_1 = "name";
+    public static final String COL_2 = "designation";
+    public static final String COL_3 = "email";
     public static final String COL_4 = "link";
     public static final String COL_5 = "imageURL";
 
@@ -33,9 +33,9 @@ public class NewsDatabase extends SQLiteOpenHelper {
 
     private Activity context;
 
-    public NewsDatabase(Context context) {
+    public KUCCBoardDatabase(Context context) {
         super(context, DATABASE_NAME, null, 18);
-        Log.e("iamat","NewsDatabase");
+        Log.e("iamat","KUCCBoardDatabase");
 //        SQLiteDatabase db = this.getWritableDatabase();
 
 
@@ -57,18 +57,17 @@ public class NewsDatabase extends SQLiteOpenHelper {
         Log.v("databasecreated", "oncreate");
 
         Log.v("iamat", "dboncreate");
-        SQL_CREATE_TABLE_NAME = "CREATE TABLE " + FacultyDatabase.TABLE_NAME + " (" +
-                FacultyDatabase.COL_1 + " TEXT NOT NULL, " +
-                FacultyDatabase.COL_2 + " TEXT NOT NULL, " +
-                FacultyDatabase.COL_3 + " TEXT NOT NULL, " +
-                FacultyDatabase.COL_4 + " TEXT NOT NULL, " +
-                FacultyDatabase.COL_5 + " TEXT NOT NULL " +
+        SQL_CREATE_TABLE_NAME = "CREATE TABLE " + KUCCBoardDatabase.TABLE_NAME + " (" +
+                KUCCBoardDatabase.COL_1 + " TEXT NOT NULL, " +
+                KUCCBoardDatabase.COL_2 + " TEXT NOT NULL, " +
+                KUCCBoardDatabase.COL_3 + " TEXT NOT NULL, " +
+                KUCCBoardDatabase.COL_4 + " TEXT NOT NULL, " +
+                KUCCBoardDatabase.COL_5 + " TEXT NOT NULL " +
 
                 " )";
         db.execSQL(SQL_CREATE_TABLE_NAME);
 
         Log.v("databasecreated", "oncreate");
-
 
 
     }
@@ -112,7 +111,7 @@ public class NewsDatabase extends SQLiteOpenHelper {
 
 
     public Cursor getInfo(SQLiteDatabase db) {
-        String SQL_READ_TABLE_NAME = "SELECT * FROM " + TABLE_NAME + " ORDER BY " + this.COL_2 +" DESC";
+        String SQL_READ_TABLE_NAME = "SELECT * FROM " + TABLE_NAME ;
         Cursor cursor = db.rawQuery(SQL_READ_TABLE_NAME, null);
 
         return cursor;

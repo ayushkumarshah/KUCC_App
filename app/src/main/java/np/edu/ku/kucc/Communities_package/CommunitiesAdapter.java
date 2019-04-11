@@ -1,12 +1,8 @@
-package np.edu.ku.kucc.News_package;
+package np.edu.ku.kucc.Communities_package;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.text.Html;
-import android.text.Spannable;
-import android.text.method.LinkMovementMethod;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,17 +18,17 @@ import np.edu.ku.kucc.R;
  * Created by ayush on 12/14/17.
  */
 
-public class NewsAdapter extends ArrayAdapter {
+public class CommunitiesAdapter extends ArrayAdapter {
 
     List list=new ArrayList();
 
 
-    public NewsAdapter(@NonNull Context context, int resource) {
+    public CommunitiesAdapter(@NonNull Context context, int resource) {
         super(context, resource);
     }
 
 
-    public void add(News object) {
+    public void add(Communities object) {
         list.add(object);
         super.add(object);
     }
@@ -53,26 +49,28 @@ public class NewsAdapter extends ArrayAdapter {
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         View row=convertView;
-        NewsHolder newsHolder;
+        FacultyHolder facultyHolder;
 
         if(row==null)
         {
             LayoutInflater layoutInflater=(LayoutInflater)this.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            row=layoutInflater.inflate(R.layout.list_single_news,parent,false);
-            newsHolder=new NewsHolder();
-            newsHolder.Title= (TextView) row.findViewById(R.id.name);
-            newsHolder.Date= (TextView) row.findViewById(R.id.date);
-            newsHolder.Info= (TextView) row.findViewById(R.id.content);
-            row.setTag(newsHolder);
+            row=layoutInflater.inflate(R.layout.list_single_faculty,parent,false);
+            facultyHolder=new FacultyHolder();
+            facultyHolder.Name= (TextView) row.findViewById(R.id.name);
+            facultyHolder.Designation= (TextView) row.findViewById(R.id.designation);
+            facultyHolder.Email= (TextView) row.findViewById(R.id.email);
+            row.setTag(facultyHolder);
         }
         else
         {
-            newsHolder=(NewsHolder)row.getTag();
+            facultyHolder=(FacultyHolder) row.getTag();
         }
-        News news=(News)getItem(position);
-        newsHolder.Title.setText(news.getTitle());
-        newsHolder.Date.setText(news.getDate());
-        String url;
+        Communities communities =(Communities)getItem(position);
+        facultyHolder.Name.setText(communities.getName());
+        facultyHolder.Designation.setText(communities.getDesignation());
+        facultyHolder.Email.setText(communities.getEmail());
+
+        /*String url;
         url=news.getLink();
         url="<a href=\""+url+"\">"+url+"</a>";
         String imgurl,content;
@@ -97,14 +95,14 @@ public class NewsAdapter extends ArrayAdapter {
         newsHolder.Info.setText(html);
 
         newsHolder.Info.setMovementMethod(LinkMovementMethod.getInstance());
-        /*newsHolder.Content.setText(Html.fromHtml(news.getContent().replaceAll("<img.+?>", "")));
+        *//*newsHolder.Content.setText(Html.fromHtml(news.getContent().replaceAll("<img.+?>", "")));
         newsHolder.Content.setMovementMethod(LinkMovementMethod.getInstance());*/
         return row;
     }
 
-    static class NewsHolder
+    static class FacultyHolder
     {
-        TextView Title, Date,Info;
+        TextView Name, Designation,Email;
 
     }
 }
