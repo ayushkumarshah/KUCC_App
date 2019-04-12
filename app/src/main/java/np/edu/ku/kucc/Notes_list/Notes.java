@@ -1,6 +1,7 @@
 package np.edu.ku.kucc.Notes_list;
 
 
+import android.app.Activity;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -53,6 +54,8 @@ public class Notes extends Fragment implements AdapterView.OnItemSelectedListene
     TextView Notes_title;
     String course_value,year_value,semester_value;
     Button Search;
+    Activity activity;
+
     public Notes() {
         // Required empty public constructor
     }
@@ -61,6 +64,9 @@ public class Notes extends Fragment implements AdapterView.OnItemSelectedListene
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+       activity=this.getActivity();
+        activity.setTitle("Notes");
+
         FirebaseFirestore db=FirebaseFirestore.getInstance();
         FirebaseFirestoreSettings settings = new FirebaseFirestoreSettings.Builder()
                 .setPersistenceEnabled(true)

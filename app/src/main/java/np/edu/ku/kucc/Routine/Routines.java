@@ -1,6 +1,7 @@
 package np.edu.ku.kucc.Routine;
 
 
+import android.app.Activity;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
@@ -30,7 +31,7 @@ import static np.edu.ku.kucc.MainActivity.mYearSem;
  * A simple {@link Fragment} subclass.
  */
 public class Routines extends Fragment {
-
+Activity activity;
 
     public Routines() {
         // Required empty public constructor
@@ -42,6 +43,8 @@ public class Routines extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view= inflater.inflate(R.layout.fragment_routines, container, false);
+        activity=this.getActivity();
+        activity.setTitle("Routine");
         TabLayout tabLayout = (TabLayout) view.findViewById(R.id.tab_layout);
         tabLayout.addTab(tabLayout.newTab().setText("Sun"));
         tabLayout.addTab(tabLayout.newTab().setText("Mon"));

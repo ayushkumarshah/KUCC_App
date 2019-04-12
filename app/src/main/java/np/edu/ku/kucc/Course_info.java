@@ -1,6 +1,7 @@
 package np.edu.ku.kucc;
 
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.KeyEvent;
@@ -17,7 +18,7 @@ import android.webkit.WebViewClient;
 public class Course_info extends Fragment {
 private WebView webView;
 
-
+Activity activity;
     public Course_info() {
         // Required empty public constructor
     }
@@ -28,7 +29,8 @@ private WebView webView;
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
       View rootview=inflater.inflate(R.layout.fragment_course_info, container, false);
-
+        activity=this.getActivity();
+        activity.setTitle("Course info");
         webView=(WebView)rootview.findViewById(R.id.webview);
         webView.getSettings().setJavaScriptEnabled(true);
         webView.setWebViewClient(new WebViewClient());

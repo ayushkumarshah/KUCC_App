@@ -16,8 +16,15 @@ import android.webkit.WebView;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.NetworkError;
+import com.android.volley.NetworkResponse;
+import com.android.volley.NoConnectionError;
+import com.android.volley.ParseError;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
+import com.android.volley.ServerError;
+import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
@@ -25,6 +32,8 @@ import com.android.volley.toolbox.Volley;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.Objects;
 
 import np.edu.ku.kucc.R;
 
@@ -38,10 +47,8 @@ public class NewsFragment extends Fragment {
     Activity activity;
     ListView list;
 
-    private ProgressDialog loading;
     JSONArray jsonArray;
     JSONObject jsonObject;
-//private WebView webView;
     public NewsFragment() {
         // Required empty public constructor
     }
@@ -52,23 +59,33 @@ public class NewsFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         View rootview=inflater.inflate(R.layout.fragment_news, container, false);
-//        webView=(WebView)root.findViewById(R.id.webview);
-//        webView.getSettings().setJavaScriptEnabled(true);
-//        webView.setWebViewClient(new WebViewClient());
-//        webView.loadUrl("http://ku.edu.np/kucc/#/news");
 
         context = rootview.getContext();
-        activity = getActivity();
-        getData();
+        activity = this.getActivity();
+        activity.setTitle("News");
+       /* if (CheckInternetConnection(context))
+        {
+
+            getData();
+
+        }
+        else
+        {
+            BackgroundTask backgroundTask=new BackgroundTask(context);
+            backgroundTask.execute("get_info");
+        }*/
+        BackgroundTask backgroundTask=new BackgroundTask(context);
+        backgroundTask.execute("get_info");
+//        getData();
         list = (ListView) rootview.findViewById(R.id.news_list);
 
         // Inflate the layout for this fragment
         return rootview;
     }
 
-    private void getData() {
+    public void getData(final Context cont) {
 
-        loading = ProgressDialog.show(context, "Please wait...", "Fetching...", false, false);
+//        loading = ProgressDialog.show(context, "Please wait...", "Fetching...", false, false);
 
         String url = "http://ku.edu.np/kucc/database.json";
         Log.e("url:", url);
@@ -76,23 +93,56 @@ public class NewsFragment extends Fragment {
         StringRequest stringRequest = new StringRequest(url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                loading.dismiss();
-                showJSON(response);
+//                loading.dismiss();
+                showJSON(response,cont);
             }
         },
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(context, error.getMessage().toString(), Toast.LENGTH_LONG).show();
+                        if (error != null && error.getMessage() != null) {
+//                            Toast.makeText(context, error.getMessage().toString(), Toast.LENGTH_LONG).show();
+                        }
+
+                        else{
+                            Toast.makeText(cont,"Something went wrong", Toast.LENGTH_LONG).show();
+
+                        }
+                        NetworkResponse networkResponse = null;
+                        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.KITKAT) {
+                            networkResponse = Objects.requireNonNull(error).networkResponse;
+                        }
+                        if (networkResponse != null) {
+                            Log.e("Volley", "Error. HTTP Status Code:"+networkResponse.statusCode);
+                        }
+
+                        if (error instanceof TimeoutError) {
+                            Log.e("Volley", "TimeoutError");
+                        }else if(error instanceof NoConnectionError){
+                            Log.e("Volley", "NoConnectionError");
+                            Toast.makeText(cont,"No internet connection", Toast.LENGTH_SHORT).show();
+//                            BackgroundTask backgroundTask=new BackgroundTask(context);
+//                            backgroundTask.execute("get_info");
+
+                        } else if (error instanceof AuthFailureError) {
+                            Log.e("Volley", "AuthFailureError");
+                        } else if (error instanceof ServerError) {
+                            Log.e("Volley", "ServerError");
+                        } else if (error instanceof NetworkError) {
+                            Log.e("Volley", "NetworkError");
+                        } else if (error instanceof ParseError) {
+                            Log.e("Volley", "ParseError");
+                        }
+
                     }
                 });
 
-        RequestQueue requestQueue = Volley.newRequestQueue(context);
+        RequestQueue requestQueue = Volley.newRequestQueue(cont);
         requestQueue.add(stringRequest);
     }
 
 
-    private void showJSON(String response) {
+    public void showJSON(String response,Context cont) {
 
 
         try {
@@ -100,16 +150,16 @@ public class NewsFragment extends Fragment {
             Log.e("response:",(jsonObject.toString()));
             jsonArray=jsonObject.getJSONArray("news");
             Log.e("response:",(jsonArray.toString()));
-            updateDataBase(jsonArray);
+            updateDataBase(jsonArray,cont);
 
 
         } catch (JSONException e) {
             e.printStackTrace();
-            Toast.makeText(context, "Server Error", Toast.LENGTH_SHORT).show();
+            Toast.makeText(cont, "Server Error", Toast.LENGTH_SHORT).show();
         }
     }
-    private void updateDataBase(JSONArray json) {
-        NewsDatabase myDB=new NewsDatabase(this.activity);
+    public void updateDataBase(JSONArray json,Context cont) {
+        NewsDatabase myDB=new NewsDatabase(cont);
         myDB.dropDatabase();
         Log.v("iamat","newsdatabase");
 
@@ -125,17 +175,16 @@ public class NewsFragment extends Fragment {
                 //Toast.makeText(activity, "Update Successfull", Toast.LENGTH_SHORT).show();
 
             } catch (JSONException e) {
-                Toast.makeText(activity, "Server Error", Toast.LENGTH_SHORT).show();
+                Toast.makeText(cont, "Server Error", Toast.LENGTH_SHORT).show();
 
 
             }
         }
-        BackgroundTask backgroundTask=new BackgroundTask(context);
-        backgroundTask.execute("get_info");
+
 
     }
 
-    public static boolean CheckInternetConnection(Context context) {
+   /* public static boolean CheckInternetConnection(Context context) {
         ConnectivityManager connectivity =
                 (ConnectivityManager) context.getSystemService(
                         Context.CONNECTIVITY_SERVICE);
@@ -148,5 +197,5 @@ public class NewsFragment extends Fragment {
                     }
         }
         return false;
-    }
+    }*/
 }

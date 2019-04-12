@@ -54,25 +54,17 @@ public class Faculty_fragment extends Fragment {
         context = rootview.getContext();
         activity=this.getActivity();
         activity.setTitle("Faculty");
-        if (CheckInternetConnection(context))
-        {
 
-            getData();
-
-        }
-        else
-        {
             BackgroundTask backgroundTask=new BackgroundTask(context);
             backgroundTask.execute("get_info");
-        }
+
 
         list = (ListView) rootview.findViewById(R.id.faculty_list);
         return rootview;
     }
 
-    private void getData() {
+    public void getData(final Context cont) {
 
-        loading = ProgressDialog.show(context, "Please wait...", "Fetching...", false, false);
 
         String url = "http://ku.edu.np/kucc/database.json";
         Log.e("url:", url);
@@ -80,23 +72,22 @@ public class Faculty_fragment extends Fragment {
         StringRequest stringRequest = new StringRequest(url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                loading.dismiss();
-                showJSON(response);
+                showJSON(response,cont);
             }
         },
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(context, error.getMessage().toString(), Toast.LENGTH_LONG).show();
+                        Toast.makeText(cont, error.getMessage().toString(), Toast.LENGTH_LONG).show();
                     }
                 });
 
-        RequestQueue requestQueue = Volley.newRequestQueue(context);
+        RequestQueue requestQueue = Volley.newRequestQueue(cont);
         requestQueue.add(stringRequest);
     }
 
 
-    private void showJSON(String response) {
+    public void showJSON(String response,Context cont) {
 
 
         try {
@@ -104,16 +95,16 @@ public class Faculty_fragment extends Fragment {
             Log.e("response:",(jsonObject.toString()));
             jsonArray=jsonObject.getJSONArray("faculty");
             Log.e("response:",(jsonArray.toString()));
-            updateDataBase(jsonArray);
+            updateDataBase(jsonArray,cont);
 
 
         } catch (JSONException e) {
             e.printStackTrace();
-            Toast.makeText(context, "Server Error", Toast.LENGTH_SHORT).show();
+            Toast.makeText(cont, "Server Error", Toast.LENGTH_SHORT).show();
         }
     }
-    private void updateDataBase(JSONArray json) {
-        FacultyDatabase myDB=new FacultyDatabase(this.activity);
+    public void updateDataBase(JSONArray json,Context cont) {
+        FacultyDatabase myDB=new FacultyDatabase(cont);
         myDB.dropDatabase();
         Log.v("iamat","facultydatabase");
 
@@ -129,13 +120,13 @@ public class Faculty_fragment extends Fragment {
                 //Toast.makeText(activity, "Update Successfull", Toast.LENGTH_SHORT).show();
 
             } catch (JSONException e) {
-                Toast.makeText(activity, "Server Error", Toast.LENGTH_SHORT).show();
+                Toast.makeText(cont, "Server Error", Toast.LENGTH_SHORT).show();
 
 
             }
         }
-        BackgroundTask backgroundTask=new BackgroundTask(context);
-        backgroundTask.execute("get_info");
+//        BackgroundTask backgroundTask=new BackgroundTask(context);
+//        backgroundTask.execute("get_info");
 
     }
 

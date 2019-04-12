@@ -1,6 +1,7 @@
 package np.edu.ku.kucc;
 
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -28,7 +29,7 @@ public class Reviews extends Fragment {
     FirebaseDatabase mdatabase;
     FirebaseAuth mauth;
     DatabaseReference mref;
-
+Activity activity;
 
     public Reviews() {
         // Required empty public constructor
@@ -45,7 +46,8 @@ public class Reviews extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
+        activity=this.getActivity();
+        activity.setTitle("Review");
 
         name = (EditText) view.findViewById(R.id.editText_name_review);
         message = (EditText) view.findViewById(R.id.editText_message_review);

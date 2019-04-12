@@ -35,7 +35,7 @@ public class FacultyDatabase extends SQLiteOpenHelper {
 
     public FacultyDatabase(Context context) {
         super(context, DATABASE_NAME, null, 18);
-        Log.e("iamat","KUCCBoardDatabase");
+        Log.e("iamat","FacultyDatabase");
 //        SQLiteDatabase db = this.getWritableDatabase();
 
 
