@@ -52,7 +52,8 @@ public class Faculty_fragment extends Fragment {
         // Inflate the layout for this fragment
         View rootview=inflater.inflate(R.layout.fragment_faculty, container, false);
         context = rootview.getContext();
-        activity = getActivity();
+        activity=this.getActivity();
+        activity.setTitle("Faculty");
         if (CheckInternetConnection(context))
         {
 
