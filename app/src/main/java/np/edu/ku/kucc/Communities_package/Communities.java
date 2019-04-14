@@ -5,12 +5,12 @@ package np.edu.ku.kucc.Communities_package;
  */
 
 public class Communities {
-    private String name,designation,email,link,imageURL;
-    public Communities(String name, String designation, String email, String link, String imageURL){
+    private String name,post,email,contact,imageURL;
+    public Communities(String name, String post, String email, String contact, String imageURL){
         this.name=name;
-        this.designation=designation;
+        this.post=post;
         this.email=email;
-        this.link=link;
+        this.contact=contact;
         this.imageURL=imageURL;
 
 
@@ -19,17 +19,17 @@ public class Communities {
     {
         return  name;
     }
-    public String getDesignation()
+    public String getPost()
     {
-        return  designation;
+        return  post;
     }
     public String getEmail()
     {
         return  email;
     }
-    public String getLink()
+    public String getContact()
     {
-        return  link;
+        return  contact;
     }
     public String getImageURL()
     {

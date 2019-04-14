@@ -16,16 +16,18 @@ import android.util.Log;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import np.edu.ku.kucc.Communities_package.CommunitiesDatabase;
+import np.edu.ku.kucc.Faculty_package.FacultyDatabase;
 import np.edu.ku.kucc.News_package.NewsDatabase;
 
 
 public class KUCCBoardDatabase extends SQLiteOpenHelper {
     public static final String DATABASE_NAME = "KUCC.db";
-    public static final String TABLE_NAME = "Faculty";
+    public static final String TABLE_NAME = "KUCCBoard";
     public static final String COL_1 = "name";
-    public static final String COL_2 = "designation";
+    public static final String COL_2 = "post";
     public static final String COL_3 = "email";
-    public static final String COL_4 = "link";
+    public static final String COL_4 = "contact";
     public static final String COL_5 = "imageURL";
 
 
@@ -57,12 +59,38 @@ public class KUCCBoardDatabase extends SQLiteOpenHelper {
         Log.v("databasecreated", "oncreate");
 
         Log.v("iamat", "dboncreate");
+        SQL_CREATE_TABLE_NAME = "CREATE TABLE " + FacultyDatabase.TABLE_NAME + " (" +
+                FacultyDatabase.COL_1 + " TEXT NOT NULL, " +
+                FacultyDatabase.COL_2 + " TEXT NOT NULL, " +
+                FacultyDatabase.COL_3 + " TEXT NOT NULL, " +
+                FacultyDatabase.COL_4 + " TEXT NOT NULL, " +
+                FacultyDatabase.COL_5 + " TEXT NOT NULL " +
+
+                " )";
+        db.execSQL(SQL_CREATE_TABLE_NAME);
+
+        Log.v("databasecreated", "oncreate");
+
+        Log.v("iamat", "dboncreate");
         SQL_CREATE_TABLE_NAME = "CREATE TABLE " + KUCCBoardDatabase.TABLE_NAME + " (" +
                 KUCCBoardDatabase.COL_1 + " TEXT NOT NULL, " +
                 KUCCBoardDatabase.COL_2 + " TEXT NOT NULL, " +
                 KUCCBoardDatabase.COL_3 + " TEXT NOT NULL, " +
                 KUCCBoardDatabase.COL_4 + " TEXT NOT NULL, " +
                 KUCCBoardDatabase.COL_5 + " TEXT NOT NULL " +
+
+                " )";
+        db.execSQL(SQL_CREATE_TABLE_NAME);
+
+        Log.v("databasecreated", "oncreate");
+
+        Log.v("iamat", "dboncreate");
+        SQL_CREATE_TABLE_NAME = "CREATE TABLE " + CommunitiesDatabase.TABLE_NAME + " (" +
+                CommunitiesDatabase.COL_1 + " TEXT NOT NULL, " +
+                CommunitiesDatabase.COL_2 + " TEXT NOT NULL, " +
+                CommunitiesDatabase.COL_3 + " TEXT NOT NULL, " +
+                CommunitiesDatabase.COL_4 + " TEXT NOT NULL, " +
+                CommunitiesDatabase.COL_5 + " TEXT NOT NULL " +
 
                 " )";
         db.execSQL(SQL_CREATE_TABLE_NAME);

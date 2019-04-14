@@ -17,7 +17,7 @@ import np.edu.ku.kucc.R;
 public class BackgroundTask extends AsyncTask<String,KUCCBoard,String> {
 
     Context ctx;
-    KUCCBoardAdapter KUCCBoardAdapter;
+    KUCCBoardAdapter kUCCBoardAdapter;
     Activity activity;
     ListView listView;
     BackgroundTask(Context ctx)
@@ -37,19 +37,19 @@ public class BackgroundTask extends AsyncTask<String,KUCCBoard,String> {
         KUCCBoardDatabase myDB=new KUCCBoardDatabase(ctx);
         if (method.equals("get_info"))
         {
-            listView=(ListView)activity.findViewById(R.id.faculty_list);
-            KUCCBoardAdapter =new KUCCBoardAdapter(ctx,R.layout.list_single_faculty);
+            listView=(ListView)activity.findViewById(R.id.kuccboard_list);
+            kUCCBoardAdapter =new KUCCBoardAdapter(ctx,R.layout.list_single_kucc_board);
             SQLiteDatabase db=myDB.getReadableDatabase();
             Cursor cursor=myDB.getInfo(db);
-            String name,designation,email,link,imageURL;
+            String name,post,email,contact,imageURL;
             while (cursor.moveToNext()) {
                 name = cursor.getString(cursor.getColumnIndex(KUCCBoardDatabase.COL_1));
-                designation = cursor.getString(cursor.getColumnIndex(KUCCBoardDatabase.COL_2));
+                post = cursor.getString(cursor.getColumnIndex(KUCCBoardDatabase.COL_2));
                 email = cursor.getString(cursor.getColumnIndex(KUCCBoardDatabase.COL_3));
-                link = cursor.getString(cursor.getColumnIndex(KUCCBoardDatabase.COL_4));
+                contact = cursor.getString(cursor.getColumnIndex(KUCCBoardDatabase.COL_4));
                 imageURL = cursor.getString(cursor.getColumnIndex(KUCCBoardDatabase.COL_5));
-                KUCCBoard KUCCBoard =new KUCCBoard(name,designation,email,link,imageURL);
-                publishProgress(KUCCBoard);
+                KUCCBoard kUCCBoard =new KUCCBoard(name,post,email,contact,imageURL);
+                publishProgress(kUCCBoard);
 
             }
             return "get_info";
@@ -60,7 +60,7 @@ public class BackgroundTask extends AsyncTask<String,KUCCBoard,String> {
     @Override
     public void onProgressUpdate(KUCCBoard... values) {
 
-        KUCCBoardAdapter.add(values[0]);
+        kUCCBoardAdapter.add(values[0]);
 
     }
 
@@ -68,8 +68,8 @@ public class BackgroundTask extends AsyncTask<String,KUCCBoard,String> {
     public void onPostExecute(String result) {
 
         if (result.equals("get_info")) {
-            if (KUCCBoardAdapter != null)
-                listView.setAdapter(KUCCBoardAdapter);
+            if (kUCCBoardAdapter != null)
+                listView.setAdapter(kUCCBoardAdapter);
             else
                 Toast.makeText(ctx, "No offline data", Toast.LENGTH_LONG).show();
         }

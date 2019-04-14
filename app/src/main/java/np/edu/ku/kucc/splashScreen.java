@@ -10,7 +10,9 @@ import android.util.Log;
 import android.view.Window;
 
 
+import np.edu.ku.kucc.Communities_package.Communities_Fragment;
 import np.edu.ku.kucc.Faculty_package.Faculty_fragment;
+import np.edu.ku.kucc.KUCCBoard_package.KUCCBoard_Fragment;
 import np.edu.ku.kucc.News_package.NewsDatabase;
 import np.edu.ku.kucc.News_package.NewsFragment;
 
@@ -36,11 +38,10 @@ public class splashScreen extends Activity {
         newsFragment.getData(this);
         Faculty_fragment faculty_fragment=new Faculty_fragment();
         faculty_fragment.getData(this);
-        /*NewsFragment newsFragment=new NewsFragment();
-        newsFragment.getData(this);
-        NewsFragment newsFragment=new NewsFragment();
-        newsFragment.getData(this);
-*/
+        KUCCBoard_Fragment kuccBoard_fragment=new KUCCBoard_Fragment();
+        kuccBoard_fragment.getData(this);
+       Communities_Fragment communities_fragment=new Communities_Fragment();
+        communities_fragment.getData(this);
 
         Thread myThread = new Thread() {
             @Override
