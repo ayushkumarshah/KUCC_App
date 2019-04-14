@@ -18,6 +18,7 @@
             android:name="splashScreen"
             android:theme="@style/NoTitleBar.Base"
             android:screenOrientation="portrait"
+            android:noHistory="true"
             android:windowSoftInputMode="stateHidden|adjustResize|adjustPan">
 
         <intent-filter>

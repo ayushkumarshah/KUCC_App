@@ -22,7 +22,6 @@ public class splashScreen extends Activity {
         window.setFormat(PixelFormat.RGBA_8888);
     }
 
-    NewsDatabase myDB;
     Context context;
 
 
