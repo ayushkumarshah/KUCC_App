@@ -16,6 +16,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
+import np.edu.ku.kucc.PicassoImageGetter;
 import np.edu.ku.kucc.R;
 
 /**
@@ -84,7 +85,7 @@ public class NewsAdapter extends ArrayAdapter {
         else
             content = news.getInfo() + "\n<br><br>Source :" + url;
 
-        PicassoImageGetter imageGetter = new PicassoImageGetter(newsHolder.Info,getContext());
+        PicassoImageGetter imageGetter = new PicassoImageGetter(newsHolder.Info,getContext(),"original");
         Spannable html;
 
         Log.e("content",content);

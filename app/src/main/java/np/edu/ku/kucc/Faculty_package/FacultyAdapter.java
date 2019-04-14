@@ -16,6 +16,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
+
 import np.edu.ku.kucc.PicassoImageGetter;
 import np.edu.ku.kucc.R;
 
@@ -64,6 +65,9 @@ public class FacultyAdapter extends ArrayAdapter {
             facultyHolder.Name= (TextView) row.findViewById(R.id.name);
             facultyHolder.Designation= (TextView) row.findViewById(R.id.designation);
             facultyHolder.Email= (TextView) row.findViewById(R.id.email);
+            facultyHolder.Link= (TextView) row.findViewById(R.id.link);
+            facultyHolder.Image= (TextView) row.findViewById(R.id.image);
+
             row.setTag(facultyHolder);
         }
         else
@@ -74,40 +78,42 @@ public class FacultyAdapter extends ArrayAdapter {
         facultyHolder.Name.setText(faculty.getName());
         facultyHolder.Designation.setText(faculty.getDesignation());
         facultyHolder.Email.setText(faculty.getEmail());
-
-        /*String url;
-        url=news.getLink();
+        String url;
+        url=faculty.getLink();
         url="<a href=\""+url+"\">"+url+"</a>";
-        String imgurl,content;
-        imgurl=news.getImageURL();
-        if (!imgurl.isEmpty()) {
-            imgurl = "<img src=\"http://ku.edu.np/kucc/" + news.getImageURL().substring(1, news.getImageURL().length()) + "\"  >";
-            content = imgurl + "<br><br>" + news.getInfo() + "\n<br><br>Source :" + url;
-        }
-        else
-            content = news.getInfo() + "\n<br><br>Source :" + url;
-
-        PicassoImageGetter imageGetter = new PicassoImageGetter(newsHolder.Info,getContext());
         Spannable html;
-
-        Log.e("content",content);
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
-            html = (Spannable) Html.fromHtml(content, Html.FROM_HTML_MODE_LEGACY, imageGetter, null);
+            html = (Spannable) Html.fromHtml(url, Html.FROM_HTML_MODE_LEGACY);
         } else {
-            html = (Spannable) Html.fromHtml(content, imageGetter, null);
+            html = (Spannable) Html.fromHtml(url);
         }
-        Log.e("html",html.toString());
-        newsHolder.Info.setText(html);
+        facultyHolder.Link.setText(html);
+        facultyHolder.Link.setMovementMethod(LinkMovementMethod.getInstance());
 
-        newsHolder.Info.setMovementMethod(LinkMovementMethod.getInstance());
-        *//*newsHolder.Content.setText(Html.fromHtml(news.getContent().replaceAll("<img.+?>", "")));
-        newsHolder.Content.setMovementMethod(LinkMovementMethod.getInstance());*/
+        String imgurl,content;
+        imgurl=faculty.getImageURL();
+        if (!imgurl.isEmpty()) {
+            imgurl = "<img src=\"http://ku.edu.np/kucc/" + faculty.getImageURL().substring(1, faculty.getImageURL().length()) + "\"  >";
+        }
+        String size="fixed";
+        PicassoImageGetter imageGetter = new PicassoImageGetter(facultyHolder.Image,getContext(),size);
+        Spannable imagehtml;
+
+        Log.e("imgurl",imgurl);
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
+            imagehtml = (Spannable) Html.fromHtml(imgurl, Html.FROM_HTML_MODE_LEGACY, imageGetter, null);
+        } else {
+            imagehtml = (Spannable) Html.fromHtml(imgurl, imageGetter, null);
+        }
+        Log.e("imagehtml",imagehtml.toString());
+        facultyHolder.Image.setText(imagehtml);
+
         return row;
     }
 
     static class FacultyHolder
     {
-        TextView Name, Designation,Email;
+        TextView Name, Designation,Email,Link,Image;
 
     }
 }

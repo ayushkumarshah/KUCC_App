@@ -17,22 +17,34 @@ public class PicassoImageGetter implements Html.ImageGetter {
 
     private TextView textView = null;
     private Context context;
-    public PicassoImageGetter(Context context) {
-        this.context = context;
-    }
+    private String size;
 
-    public PicassoImageGetter(TextView target, Context context) {
+    public PicassoImageGetter(TextView target, Context context,String size) {
         textView = target;
-         this.context =  context;
+        this.context =  context;
+        this.size=size;
     }
 
     @Override
     public Drawable getDrawable(String source) {
         BitmapDrawablePlaceHolder drawable = new BitmapDrawablePlaceHolder();
-        Picasso.with(context)
-                .load(source)
-                .placeholder(R.drawable.logo)
-                .into(drawable);
+        if (size.equals("fixed"))
+        {
+            Picasso.with(context)
+                    .load(source)
+                    .placeholder(R.drawable.logo)
+                    .resize(1200,400)
+                    .centerInside()
+                    .into(drawable);
+        }
+        else
+        {
+            Picasso.with(context)
+                    .load(source)
+                    .placeholder(R.drawable.logo)
+                    .into(drawable);
+        }
+
         return drawable;
     }
 
