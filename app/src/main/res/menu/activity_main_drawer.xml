@@ -35,7 +35,7 @@
         <item
             android:id="@+id/nav_aboutkucc"
             android:icon="@drawable/icon_info"
-            android:title="KUCC" />
+            android:title="KUCC Board" />
         <item
             android:id="@+id/nav_share"
             android:icon="@drawable/icon_share"

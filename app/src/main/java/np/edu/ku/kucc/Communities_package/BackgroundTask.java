@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.AsyncTask;
+import android.util.Log;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -37,18 +38,19 @@ public class BackgroundTask extends AsyncTask<String,Communities,String> {
         CommunitiesDatabase myDB=new CommunitiesDatabase(ctx);
         if (method.equals("get_info"))
         {
-            listView=(ListView)activity.findViewById(R.id.faculty_list);
-            communitiesAdapter =new CommunitiesAdapter(ctx,R.layout.list_single_faculty);
+
+            listView=(ListView)activity.findViewById(R.id.communities_list);
+            communitiesAdapter =new CommunitiesAdapter(ctx,R.layout.list_single_communities);
             SQLiteDatabase db=myDB.getReadableDatabase();
             Cursor cursor=myDB.getInfo(db);
-            String name,designation,email,link,imageURL;
+            String name,post,email,contact,imageURL;
             while (cursor.moveToNext()) {
                 name = cursor.getString(cursor.getColumnIndex(CommunitiesDatabase.COL_1));
-                designation = cursor.getString(cursor.getColumnIndex(CommunitiesDatabase.COL_2));
+                post = cursor.getString(cursor.getColumnIndex(CommunitiesDatabase.COL_2));
                 email = cursor.getString(cursor.getColumnIndex(CommunitiesDatabase.COL_3));
-                link = cursor.getString(cursor.getColumnIndex(CommunitiesDatabase.COL_4));
+                contact = cursor.getString(cursor.getColumnIndex(CommunitiesDatabase.COL_4));
                 imageURL = cursor.getString(cursor.getColumnIndex(CommunitiesDatabase.COL_5));
-                Communities communities =new Communities(name,designation,email,link,imageURL);
+                Communities communities =new Communities(name,post,email,contact,imageURL);
                 publishProgress(communities);
 
             }
@@ -68,6 +70,7 @@ public class BackgroundTask extends AsyncTask<String,Communities,String> {
     public void onPostExecute(String result) {
 
         if (result.equals("get_info")) {
+            Log.e("communitiesdata",communitiesAdapter.toString());
             if (communitiesAdapter != null)
                 listView.setAdapter(communitiesAdapter);
             else

@@ -16,7 +16,9 @@ import android.util.Log;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import np.edu.ku.kucc.Communities_package.CommunitiesDatabase;
 import np.edu.ku.kucc.Faculty_package.FacultyDatabase;
+import np.edu.ku.kucc.KUCCBoard_package.KUCCBoardDatabase;
 
 
 public class NewsDatabase extends SQLiteOpenHelper {
@@ -69,6 +71,31 @@ public class NewsDatabase extends SQLiteOpenHelper {
 
         Log.v("databasecreated", "oncreate");
 
+        Log.v("iamat", "dboncreate");
+        SQL_CREATE_TABLE_NAME = "CREATE TABLE " + KUCCBoardDatabase.TABLE_NAME + " (" +
+                KUCCBoardDatabase.COL_1 + " TEXT NOT NULL, " +
+                KUCCBoardDatabase.COL_2 + " TEXT NOT NULL, " +
+                KUCCBoardDatabase.COL_3 + " TEXT NOT NULL, " +
+                KUCCBoardDatabase.COL_4 + " TEXT NOT NULL, " +
+                KUCCBoardDatabase.COL_5 + " TEXT NOT NULL " +
+
+                " )";
+        db.execSQL(SQL_CREATE_TABLE_NAME);
+
+        Log.v("databasecreated", "oncreate");
+
+        Log.v("iamat", "dboncreate");
+        SQL_CREATE_TABLE_NAME = "CREATE TABLE " + CommunitiesDatabase.TABLE_NAME + " (" +
+                CommunitiesDatabase.COL_1 + " TEXT NOT NULL, " +
+                CommunitiesDatabase.COL_2 + " TEXT NOT NULL, " +
+                CommunitiesDatabase.COL_3 + " TEXT NOT NULL, " +
+                CommunitiesDatabase.COL_4 + " TEXT NOT NULL, " +
+                CommunitiesDatabase.COL_5 + " TEXT NOT NULL " +
+
+                " )";
+        db.execSQL(SQL_CREATE_TABLE_NAME);
+
+        Log.v("databasecreated", "oncreate");
 
 
     }
