@@ -20,11 +20,14 @@ public class Conversion {
 
     public String YearSem(String year, String semester) {
         String YearSem = null;
-        String Year=year.substring(0,1);
-        String Sem=semester.substring(0,1);
-        YearSem=Year+"Y"+Sem+"S";
-
+        String Year=null;
+        String Sem=null;
+        Year=year.substring(0,1);
+        Sem=semester.substring(0,1);
+        YearSem=Year+'Y'+Sem+'S';
         return YearSem;
+
+
 
     }
 

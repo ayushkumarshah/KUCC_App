@@ -73,6 +73,7 @@ public class Batch extends AppCompatActivity {
 
         }
         public void selectCourse(View v){
+
             final String[] items = new String[2];
 
             items[0] = "Computer Science";
