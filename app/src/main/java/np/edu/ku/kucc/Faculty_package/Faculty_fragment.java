@@ -78,7 +78,7 @@ public class Faculty_fragment extends Fragment {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(cont, error.getMessage().toString(), Toast.LENGTH_LONG).show();
+//                        Toast.makeText(cont, error.getMessage().toString(), Toast.LENGTH_LONG).show();
                     }
                 });
 

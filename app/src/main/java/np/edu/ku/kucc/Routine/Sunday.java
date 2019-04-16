@@ -108,7 +108,7 @@ public class Sunday extends Fragment {
                                     querySnapshot.getString("Course_Inst"),
                                     querySnapshot.getString("Course_Time"));
                             list.add(routinelistobj);
-                            RecyclerViewAdapter adapter1=new RecyclerViewAdapter(getContext(),list);
+                            RecyclerViewAdapterEvent adapter1=new RecyclerViewAdapterEvent(getContext(),list);
                             mRecyclerView.setAdapter(adapter1);
                         }
 

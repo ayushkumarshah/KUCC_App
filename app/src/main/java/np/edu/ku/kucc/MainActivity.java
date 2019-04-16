@@ -15,6 +15,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.webkit.WebView;
 
+import np.edu.ku.kucc.Account.Login;
 import np.edu.ku.kucc.Account.Profile;
 import np.edu.ku.kucc.Communities_package.Communities_Fragment;
 import np.edu.ku.kucc.Database.SharedPref;
@@ -114,6 +115,7 @@ public class MainActivity extends AppCompatActivity
            changeFragment(new Events_fragment());
         } else if (id == R.id.nav_routines) {
            changeFragment(new Routines());
+
         } else if (id == R.id.nav_courseinfo) {
            changeFragment(new Course_info());
         } else if (id == R.id.nav_teacherinfo) {
@@ -130,7 +132,7 @@ public class MainActivity extends AppCompatActivity
             startActivity(Intent.createChooser(sharingIntent, "Share using"));
         }
        else if (id == R.id.nav_profile) {
-           changeFragment(new Profile());
+           changeFragment(new Login());
        } else if (id == R.id.nav_visit) {
            Uri uri = Uri.parse("http://ku.edu.np/kucc/#/"); // missing 'http://' will cause crashed
            Intent intent = new Intent(Intent.ACTION_VIEW, uri);

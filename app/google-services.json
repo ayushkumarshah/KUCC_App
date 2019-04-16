@@ -23,6 +23,14 @@
           }
         },
         {
+          "client_id": "349544969143-9o9b85s5uouhgmdirm81b0d3abg1927s.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "np.edu.ku.kucc",
+            "certificate_hash": "306340a957dc90892fbf965596d3107594a3f7d4"
+          }
+        },
+        {
           "client_id": "349544969143-0jvdgsh2nh8fvboca8131sj19mdnhgnn.apps.googleusercontent.com",
           "client_type": 3
         }
@@ -33,20 +41,13 @@
         }
       ],
       "services": {
-        "analytics_service": {
-          "status": 1
-        },
         "appinvite_service": {
-          "status": 2,
           "other_platform_oauth_client": [
             {
               "client_id": "349544969143-0jvdgsh2nh8fvboca8131sj19mdnhgnn.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
-        },
-        "ads_service": {
-          "status": 2
         }
       }
     }
