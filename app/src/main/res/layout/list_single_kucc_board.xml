@@ -37,7 +37,7 @@ android:orientation="vertical">
                     android:layout_marginLeft="5dp"
                     android:layout_marginTop="10dp"
                     android:text="name"
-                    android:textColor="#000"
+                    android:textColor="@color/colorPrimaryDark"
                     android:textSize="20sp"
                     android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="parent"
@@ -50,7 +50,7 @@ android:orientation="vertical">
                     android:layout_marginLeft="5dp"
                     android:layout_marginTop="10dp"
                     android:text="Designation"
-                    android:textColor="#000"
+                    android:textColor="@color/colorPrimary"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/name" />
                 <TextView
@@ -101,7 +101,7 @@ android:orientation="vertical">
                     app:layout_constraintTop_toBottomOf="@+id/email" />
                 <View
                     android:layout_width="match_parent"
-                    android:layout_height="5dp"
+                    android:layout_height="1dp"
                     android:background="#ebebeb"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
