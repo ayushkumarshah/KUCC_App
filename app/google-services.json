@@ -31,6 +31,14 @@
           }
         },
         {
+          "client_id": "349544969143-3pem3gvkhj2kiofnn6kj9svcjcj9apd1.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "np.edu.ku.kucc",
+            "certificate_hash": "32053faa5f1c7595b1bcf810ee8975d7d42e672a"
+          }
+        },
+        {
           "client_id": "349544969143-0jvdgsh2nh8fvboca8131sj19mdnhgnn.apps.googleusercontent.com",
           "client_type": 3
         }
