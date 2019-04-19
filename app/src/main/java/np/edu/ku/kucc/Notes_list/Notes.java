@@ -37,11 +37,7 @@ import java.util.List;
 import np.edu.ku.kucc.MainActivity;
 import np.edu.ku.kucc.R;
 import np.edu.ku.kucc.Routine.Conversion;
-import np.edu.ku.kucc.Routine.MyDatabaseUtils;
 
-import static np.edu.ku.kucc.MainActivity.Course;
-import static np.edu.ku.kucc.MainActivity.Semester;
-import static np.edu.ku.kucc.MainActivity.Year;
 import static np.edu.ku.kucc.MainActivity.mCourse;
 import static np.edu.ku.kucc.MainActivity.mYearSem;
 
@@ -113,7 +109,8 @@ public class Notes extends Fragment implements AdapterView.OnItemSelectedListene
 
         Notes_title.setText(MainActivity.mCourse+" "+MainActivity.Year+" "+ MainActivity.Semester);
 
-        mDatabase= MyDatabaseUtils.getDatabase();
+        mDatabase= FirebaseDatabase.getInstance();
+
 
         mDatabaseReference=mDatabase.getReference().child("Notes").child(mCourse).child(mYearSem);
         mDatabaseReference.addValueEventListener(new ValueEventListener() {

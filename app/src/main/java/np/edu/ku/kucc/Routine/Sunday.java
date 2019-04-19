@@ -66,7 +66,8 @@ public class Sunday extends Fragment {
         Toast.makeText(getContext(), mYearSem + " " + mCourse ,Toast.LENGTH_LONG).show();
 
         //Firebase RealTime Database
-        mDatabase= MyDatabaseUtils.getDatabase();
+        mDatabase= FirebaseDatabase.getInstance();
+
         mDatabaseReference=mDatabase.getReference().child("Routines").child(mCourse).child(mYearSem).child("Sunday");
         mDatabaseReference.addValueEventListener(new ValueEventListener() {
             @Override

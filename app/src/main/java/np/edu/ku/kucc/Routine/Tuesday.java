@@ -49,7 +49,8 @@ public class Tuesday extends Fragment {
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         list=new ArrayList<routinelist>();
         //Firebase RealTime Database
-        mDatabase= MyDatabaseUtils.getDatabase();
+        mDatabase= FirebaseDatabase.getInstance();
+
         mDatabaseReference=mDatabase.getReference().child("Routines").child(mCourse).child(mYearSem).child("Tuesday");
         mDatabaseReference.addValueEventListener(new ValueEventListener() {
             @Override
