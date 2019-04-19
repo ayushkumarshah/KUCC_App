@@ -16,10 +16,8 @@ import android.view.MenuItem;
 import android.webkit.WebView;
 
 import np.edu.ku.kucc.Account.Login;
-import np.edu.ku.kucc.Account.Profile;
 import np.edu.ku.kucc.Communities_package.Communities_Fragment;
 import np.edu.ku.kucc.Database.SharedPref;
-import np.edu.ku.kucc.Events_Package.Events_fragment;
 import np.edu.ku.kucc.Faculty_package.Faculty_fragment;
 import np.edu.ku.kucc.KUCCBoard_package.KUCCBoard_Fragment;
 import np.edu.ku.kucc.News_package.NewsFragment;

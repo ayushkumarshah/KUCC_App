@@ -1,4 +1,4 @@
-package np.edu.ku.kucc.Events_Package;
+package np.edu.ku.kucc;
 
 
 import android.app.Activity;
