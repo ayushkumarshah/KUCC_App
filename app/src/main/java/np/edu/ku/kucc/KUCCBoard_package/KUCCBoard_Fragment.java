@@ -13,8 +13,15 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.NetworkError;
+import com.android.volley.NetworkResponse;
+import com.android.volley.NoConnectionError;
+import com.android.volley.ParseError;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
+import com.android.volley.ServerError;
+import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
@@ -22,6 +29,8 @@ import com.android.volley.toolbox.Volley;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.Objects;
 
 import np.edu.ku.kucc.Faculty_package.FacultyDatabase;
 import np.edu.ku.kucc.R;
@@ -77,7 +86,40 @@ public class KUCCBoard_Fragment extends Fragment {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(cont, error.getMessage().toString(), Toast.LENGTH_LONG).show();
+                        if (error != null && error.getMessage() != null) {
+//                            Toast.makeText(context, error.getMessage().toString(), Toast.LENGTH_LONG).show();
+                        }
+
+                        else{
+                            Toast.makeText(cont,"Something went wrong", Toast.LENGTH_LONG).show();
+
+                        }
+                        NetworkResponse networkResponse = null;
+                        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.KITKAT) {
+                            networkResponse = Objects.requireNonNull(error).networkResponse;
+                        }
+                        if (networkResponse != null) {
+                            Log.e("Volley", "Error. HTTP Status Code:"+networkResponse.statusCode);
+                        }
+
+                        if (error instanceof TimeoutError) {
+                            Log.e("Volley", "TimeoutError");
+                        }else if(error instanceof NoConnectionError){
+                            Log.e("Volley", "NoConnectionError");
+                            Toast.makeText(cont,"No internet connection", Toast.LENGTH_SHORT).show();
+//                            BackgroundTask backgroundTask=new BackgroundTask(context);
+//                            backgroundTask.execute("get_info");
+
+                        } else if (error instanceof AuthFailureError) {
+                            Log.e("Volley", "AuthFailureError");
+                        } else if (error instanceof ServerError) {
+                            Log.e("Volley", "ServerError");
+                        } else if (error instanceof NetworkError) {
+                            Log.e("Volley", "NetworkError");
+                        } else if (error instanceof ParseError) {
+                            Log.e("Volley", "ParseError");
+                        }
+
                     }
                 });
 
