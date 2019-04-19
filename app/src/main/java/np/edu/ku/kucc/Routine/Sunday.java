@@ -63,68 +63,6 @@ public class Sunday extends Fragment {
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         list=new ArrayList<routinelist>();
-
-
-        /*
-
-        list.add(
-                new routinelist(
-                        "COMP 201",
-                        "computer",
-                        "Ayush",
-                        "9:00"
-                ));
-
-        list.add(
-                new routinelist(
-                        "COMP 301",
-                        "Math",
-                        "Shoaib",
-                        "10:00"
-                ));
-
-        list.add(
-                new routinelist(
-                        "COMP 401",
-                        "Microsoft Surface Pro 4 Core m3 6th Gen - (4 GB/128 GB SSD/Windows 10)",
-                        "13.3 inch, Silver, 1.35 kg",
-                        "11:00"
-                ));
-
-
-        //mRecyclerView.setAdapter(adapter1);
-        //Document Reference
-        */
-        /*
-        db.collection("/Routines/CE/1Y1S/Sunday/1")
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        for (DocumentSnapshot querySnapshot:task.getResult())
-                        {
-                            routinelist routinelistobj=new routinelist(querySnapshot.getString("Course_Id"),
-                                    querySnapshot.getString("Course_Name"),
-                                    querySnapshot.getString("Course_Inst"),
-                                    querySnapshot.getString("Course_Time"));
-                            list.add(routinelistobj);
-                            RecyclerViewAdapterEvent adapter1=new RecyclerViewAdapterEvent(getContext(),list);
-                            mRecyclerView.setAdapter(adapter1);
-                        }
-
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(getContext(),"Error Fetching routine",Toast.LENGTH_LONG).show();
-
-                    }
-                });
-           */
-
-        //TESTING
-
         Toast.makeText(getContext(), mYearSem + " " + mCourse ,Toast.LENGTH_LONG).show();
 
         //Firebase RealTime Database
