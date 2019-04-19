@@ -7,6 +7,11 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
+import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,6 +35,9 @@ public class Reviews extends Fragment {
     FirebaseAuth mauth;
     DatabaseReference mref;
 Activity activity;
+    View rootView;
+    DrawerLayout drawerLayout;
+    ActionBarDrawerToggle abdToggle;
 
     public Reviews() {
         // Required empty public constructor
@@ -40,14 +48,20 @@ Activity activity;
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_reviews, container, false);
+        rootView=inflater.inflate(R.layout.fragment_reviews, container, false);
+        activity=this.getActivity();
+        activity.setTitle("Review");
+
+        drawerLayout = activity.findViewById(R.id.drawer_layout);
+        abdToggle = new ActionBarDrawerToggle(activity, drawerLayout, R.string.openDrawer, R.string.closeDrawer);
+        drawerLayout.addDrawerListener(abdToggle);
+        abdToggle.syncState();
+        return rootView;
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        activity=this.getActivity();
-        activity.setTitle("Review");
 
         name = (EditText) view.findViewById(R.id.editText_name_review);
         message = (EditText) view.findViewById(R.id.editText_message_review);
@@ -85,5 +99,32 @@ Activity activity;
         mref.child("name:").setValue(name.getText().toString());
         mref.child("message:").setValue(message.getText().toString());
     }
+    @Override
+    public void onResume() {
+        Log.e("apkflow","onResume CallLog_Fragment");
+        super.onResume();
+        rootView.setFocusableInTouchMode(true);
+        rootView.requestFocus();
+        rootView.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if (event.getAction() == KeyEvent.ACTION_UP && keyCode == KeyEvent.KEYCODE_BACK){
+                    Log.e("apkflow","CallLog_Fragment back Clicked");
 
+                    if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
+
+                        drawerLayout.closeDrawer(GravityCompat.START);
+
+                    }
+                    else {
+                        Log.e("apkflow","popBack");
+                        getActivity().getSupportFragmentManager().popBackStack();
+                        activity.setTitle("KUCC");
+                    }
+                    return true;
+                }
+                return false;
+            }
+        });
+    }
 }

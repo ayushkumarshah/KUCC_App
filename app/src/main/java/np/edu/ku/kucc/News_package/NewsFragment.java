@@ -4,11 +4,17 @@ package np.edu.ku.kucc.News_package;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -46,6 +52,11 @@ public class NewsFragment extends Fragment {
     Context context;
     Activity activity;
     ListView list;
+    View rootView;
+DrawerLayout drawerLayout;
+    boolean doubleBackToExitPressedOnce = false;
+
+    ActionBarDrawerToggle abdToggle;
 
     JSONArray jsonArray;
     JSONObject jsonObject;
@@ -58,11 +69,15 @@ public class NewsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View rootview=inflater.inflate(R.layout.fragment_news, container, false);
+        rootView=inflater.inflate(R.layout.fragment_news, container, false);
 
-        context = rootview.getContext();
+        context = rootView.getContext();
         activity = this.getActivity();
         activity.setTitle("News");
+        drawerLayout = activity.findViewById(R.id.drawer_layout);
+        abdToggle = new ActionBarDrawerToggle(activity, drawerLayout, R.string.openDrawer, R.string.closeDrawer);
+        drawerLayout.addDrawerListener(abdToggle);
+        abdToggle.syncState();
        /* if (CheckInternetConnection(context))
         {
 
@@ -77,10 +92,10 @@ public class NewsFragment extends Fragment {
         BackgroundTask backgroundTask=new BackgroundTask(context);
         backgroundTask.execute("get_info");
 //        getData();
-        list = (ListView) rootview.findViewById(R.id.news_list);
+        list = (ListView) rootView.findViewById(R.id.news_list);
 
         // Inflate the layout for this fragment
-        return rootview;
+        return rootView;
     }
 
     public void getData(final Context cont) {
@@ -101,7 +116,8 @@ public class NewsFragment extends Fragment {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         if (error != null && error.getMessage() != null) {
-//                            Toast.makeText(context, error.getMessage().toString(), Toast.LENGTH_LONG).show();
+                            Toast.makeText(cont, error.getMessage(), Toast.LENGTH_LONG).show();
+
                         }
 
                         else{
@@ -183,19 +199,47 @@ public class NewsFragment extends Fragment {
 
 
     }
+    @Override
+    public void onResume() {
+        Log.e("apkflow","onResume CallLog_Fragment");
+        super.onResume();
+        rootView.setFocusableInTouchMode(true);
+        rootView.requestFocus();
+        rootView.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if (event.getAction() == KeyEvent.ACTION_UP && keyCode == KeyEvent.KEYCODE_BACK){
+                    Log.e("apkflow","CallLog_Fragment back Clicked");
 
-   /* public static boolean CheckInternetConnection(Context context) {
-        ConnectivityManager connectivity =
-                (ConnectivityManager) context.getSystemService(
-                        Context.CONNECTIVITY_SERVICE);
-        if (connectivity != null) {
-            NetworkInfo[] info = connectivity.getAllNetworkInfo();
-            if (info != null)
-                for (int i = 0; i < info.length; i++)
-                    if (info[i].getState() == NetworkInfo.State.CONNECTED) {
-                        return true;
+                    if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
+
+                        drawerLayout.closeDrawer(GravityCompat.START);
+
                     }
-        }
-        return false;
-    }*/
+                    if (doubleBackToExitPressedOnce) {
+                       /* Intent intent = new Intent(Intent.ACTION_MAIN);
+                        intent.addCategory(Intent.CATEGORY_HOME);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        startActivity(intent);*/
+                        activity.finish();
+                        System.exit(0);
+                    }
+
+                    doubleBackToExitPressedOnce = true;
+                    Toast.makeText(context, "Please click BACK again to exit", Toast.LENGTH_SHORT).show();
+
+                    new Handler().postDelayed(new Runnable() {
+
+                        @Override
+                        public void run() {
+                            doubleBackToExitPressedOnce=false;
+                        }
+                    }, 2000);
+                    return true;
+                }
+                return false;
+            }
+        });
+    }
 }
+

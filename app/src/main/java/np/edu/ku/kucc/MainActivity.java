@@ -156,7 +156,7 @@ public class MainActivity extends AppCompatActivity
                 .beginTransaction()
                 .replace(R.id.activity_main, targetFragment, "fragment")
                 .setTransitionStyle(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
-
+                .addToBackStack("tag")
                 .commit();
     }
 }

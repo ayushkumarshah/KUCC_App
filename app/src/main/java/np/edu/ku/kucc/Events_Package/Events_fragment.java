@@ -1,11 +1,16 @@
 package np.edu.ku.kucc.Events_Package;
 
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,8 +38,10 @@ public class Events_fragment extends Fragment {
     private List<EventModel> list;
     RecyclerView mRecyclerView;
     DatabaseReference mDatabase;
-
-
+Activity activity;
+    View rootView;
+    DrawerLayout drawerLayout;
+    ActionBarDrawerToggle abdToggle;
     public Events_fragment() {
         // Required empty public constructor
     }
@@ -44,8 +51,15 @@ public class Events_fragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        final View view = inflater.inflate(R.layout.fragment_events, container, false);
+        rootView = inflater.inflate(R.layout.fragment_events, container, false);
         list = new ArrayList<>();
+        activity=this.getActivity();
+        activity.setTitle("Events");
+
+        drawerLayout = activity.findViewById(R.id.drawer_layout);
+        abdToggle = new ActionBarDrawerToggle(activity, drawerLayout, R.string.openDrawer, R.string.closeDrawer);
+        drawerLayout.addDrawerListener(abdToggle);
+        abdToggle.syncState();
         FirebaseApp.initializeApp(getContext());
         //Retrieve From Database
         mDatabase = FirebaseDatabase.getInstance().getReference("Events");
@@ -64,7 +78,7 @@ public class Events_fragment extends Fragment {
                         //RECYCLER VIEW
 
                         list.add(eventModel);
-                        mRecyclerView=(RecyclerView) view.findViewById(R.id.recyclerViewEvents);
+                        mRecyclerView=(RecyclerView) rootView.findViewById(R.id.recyclerViewEvents);
                         mRecyclerView.setHasFixedSize(true);
                         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
                         //creating recyclerview adapter
@@ -84,7 +98,34 @@ public class Events_fragment extends Fragment {
                 Log.w(TAG, "Failed to read value.", error.toException());
             }
         });
-        return view;
+        return rootView;
     }
+    @Override
+    public void onResume() {
+        Log.e("apkflow","onResume CallLog_Fragment");
+        super.onResume();
+        rootView.setFocusableInTouchMode(true);
+        rootView.requestFocus();
+        rootView.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if (event.getAction() == KeyEvent.ACTION_UP && keyCode == KeyEvent.KEYCODE_BACK){
+                    Log.e("apkflow","CallLog_Fragment back Clicked");
 
+                    if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
+
+                        drawerLayout.closeDrawer(GravityCompat.START);
+
+                    }
+                    else {
+                        Log.e("apkflow","popBack");
+                        getActivity().getSupportFragmentManager().popBackStack();
+                        activity.setTitle("KUCC");
+                    }
+                    return true;
+                }
+                return false;
+            }
+        });
+    }
 }

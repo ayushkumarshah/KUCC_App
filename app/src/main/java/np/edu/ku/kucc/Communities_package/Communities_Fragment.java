@@ -5,7 +5,11 @@ import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -45,7 +49,9 @@ public class Communities_Fragment extends Fragment {
 
     JSONArray jsonArray;
     JSONObject jsonObject;
-
+    View rootview;
+    DrawerLayout drawerLayout;
+    ActionBarDrawerToggle abdToggle;
     public Communities_Fragment() {
         // Required empty public constructor
     }
@@ -55,10 +61,14 @@ public class Communities_Fragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View rootview = inflater.inflate(R.layout.fragment_communities, container, false);
+        rootview = inflater.inflate(R.layout.fragment_communities, container, false);
         context = rootview.getContext();
         activity = this.getActivity();
         activity.setTitle("Community Coordinators");
+        drawerLayout = activity.findViewById(R.id.drawer_layout);
+        abdToggle = new ActionBarDrawerToggle(activity, drawerLayout, R.string.openDrawer, R.string.closeDrawer);
+        drawerLayout.addDrawerListener(abdToggle);
+        abdToggle.syncState();
 
         BackgroundTask backgroundTask = new BackgroundTask(context);
         backgroundTask.execute("get_info");
@@ -82,7 +92,7 @@ public class Communities_Fragment extends Fragment {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         if (error != null && error.getMessage() != null) {
-//                            Toast.makeText(context, error.getMessage().toString(), Toast.LENGTH_LONG).show();
+                            Toast.makeText(cont, error.getMessage(), Toast.LENGTH_LONG).show();
                         }
 
                         else{
@@ -162,5 +172,33 @@ public class Communities_Fragment extends Fragment {
 
             }
         }
+    }
+    @Override
+    public void onResume() {
+        Log.e("apkflow","onResume CallLog_Fragment");
+        super.onResume();
+        rootview.setFocusableInTouchMode(true);
+        rootview.requestFocus();
+        rootview.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if (event.getAction() == KeyEvent.ACTION_UP && keyCode == KeyEvent.KEYCODE_BACK){
+                    Log.e("apkflow","CallLog_Fragment back Clicked");
+
+                    if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
+
+                        drawerLayout.closeDrawer(GravityCompat.START);
+
+                    }
+                    else {
+                        Log.e("apkflow","popBack");
+                        getActivity().getSupportFragmentManager().popBackStack();
+                        activity.setTitle("KUCC");
+                    }
+                    return true;
+                }
+                return false;
+            }
+        });
     }
 }

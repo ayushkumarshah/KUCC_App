@@ -6,7 +6,11 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -47,7 +51,9 @@ public class KUCCBoard_Fragment extends Fragment {
 
     JSONArray jsonArray;
     JSONObject jsonObject;
-
+    View rootView;
+    DrawerLayout drawerLayout;
+    ActionBarDrawerToggle abdToggle;
     public KUCCBoard_Fragment() {
         // Required empty public constructor
     }
@@ -57,18 +63,21 @@ public class KUCCBoard_Fragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View rootview = inflater.inflate(R.layout.fragment_kucc_board, container, false);
-        context = rootview.getContext();
+        rootView = inflater.inflate(R.layout.fragment_kucc_board, container, false);
+        context = rootView.getContext();
         activity = this.getActivity();
         activity.setTitle("KUCC Board");
-
+        drawerLayout = activity.findViewById(R.id.drawer_layout);
+        abdToggle = new ActionBarDrawerToggle(activity, drawerLayout, R.string.openDrawer, R.string.closeDrawer);
+        drawerLayout.addDrawerListener(abdToggle);
+        abdToggle.syncState();
         BackgroundTask backgroundTask = new BackgroundTask(context);
         backgroundTask.execute("get_info");
 
 
 
 
-        return rootview;
+        return rootView;
     }
 
     public void getData(final Context cont) {
@@ -87,7 +96,8 @@ public class KUCCBoard_Fragment extends Fragment {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         if (error != null && error.getMessage() != null) {
-//                            Toast.makeText(context, error.getMessage().toString(), Toast.LENGTH_LONG).show();
+                            Toast.makeText(cont, error.getMessage(), Toast.LENGTH_LONG).show();
+
                         }
 
                         else{
@@ -167,5 +177,33 @@ public class KUCCBoard_Fragment extends Fragment {
 
             }
         }
+    }
+    @Override
+    public void onResume() {
+        Log.e("apkflow","onResume CallLog_Fragment");
+        super.onResume();
+        rootView.setFocusableInTouchMode(true);
+        rootView.requestFocus();
+        rootView.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if (event.getAction() == KeyEvent.ACTION_UP && keyCode == KeyEvent.KEYCODE_BACK){
+                    Log.e("apkflow","CallLog_Fragment back Clicked");
+
+                    if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
+
+                        drawerLayout.closeDrawer(GravityCompat.START);
+
+                    }
+                    else {
+                        Log.e("apkflow","popBack");
+                        getActivity().getSupportFragmentManager().popBackStack();
+                        activity.setTitle("KUCC");
+                    }
+                    return true;
+                }
+                return false;
+            }
+        });
     }
 }

@@ -16,4 +16,7 @@
     <string name="select_year">Select Year</string>
     <string name="select_semester">Select Semester</string>
     <string name="select_course">Select Course</string>
+
+    <string name="closeDrawer" translatable="false">Close Navigation Drawer</string>
+    <string name="openDrawer" translatable="false">Open Navigation Drawer</string>
 </resources>

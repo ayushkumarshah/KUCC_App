@@ -6,9 +6,13 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -55,6 +59,9 @@ public class Notes extends Fragment implements AdapterView.OnItemSelectedListene
     String course_value,year_value,semester_value;
     Button Search;
     Activity activity;
+    View rootView;
+    DrawerLayout drawerLayout;
+    ActionBarDrawerToggle abdToggle;
 
     public Notes() {
         // Required empty public constructor
@@ -73,16 +80,21 @@ public class Notes extends Fragment implements AdapterView.OnItemSelectedListene
                 .build();
 
         db.setFirestoreSettings(settings);
-        final View view=inflater.inflate(R.layout.fragment_notes, container, false);;
-        mRecyclerView=(RecyclerView) view.findViewById(R.id.recyclernotes);
+        rootView=inflater.inflate(R.layout.fragment_notes, container, false);
+        drawerLayout = activity.findViewById(R.id.drawer_layout);
+        abdToggle = new ActionBarDrawerToggle(activity, drawerLayout, R.string.openDrawer, R.string.closeDrawer);
+        drawerLayout.addDrawerListener(abdToggle);
+        abdToggle.syncState();
+        mRecyclerView=(RecyclerView) rootView.findViewById(R.id.recyclernotes);
+
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         list=new ArrayList<NotesList>();
-        Year = (Spinner) view.findViewById(R.id.year_value);
-        Course = (Spinner) view.findViewById(R.id.course_value);
-        Semester = (Spinner) view.findViewById(R.id.semester_value);
-        Search=(Button) view.findViewById(R.id.search);
-        Notes_title=(TextView)view.findViewById(R.id.notes_title);
+        Year = (Spinner) rootView.findViewById(R.id.year_value);
+        Course = (Spinner) rootView.findViewById(R.id.course_value);
+        Semester = (Spinner) rootView.findViewById(R.id.semester_value);
+        Search=(Button) rootView.findViewById(R.id.search);
+        Notes_title=(TextView)rootView.findViewById(R.id.notes_title);
         SharedPreferences preferences= PreferenceManager.getDefaultSharedPreferences(getContext());
         MainActivity.Course= preferences.getString("Course", null);
         MainActivity.Year= preferences.getString("Year", null);
@@ -113,7 +125,7 @@ public class Notes extends Fragment implements AdapterView.OnItemSelectedListene
                         NotesList notesListobj=dataSnapshot1.getValue(NotesList.class);
 
                         list.add(notesListobj);
-                        mRecyclerView = (RecyclerView) view.findViewById(R.id.recyclernotes);
+                        mRecyclerView = (RecyclerView) rootView.findViewById(R.id.recyclernotes);
                         mRecyclerView.setHasFixedSize(true);
 
                         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -190,7 +202,7 @@ public class Notes extends Fragment implements AdapterView.OnItemSelectedListene
                                       NotesList notesListobj=dataSnapshot1.getValue(NotesList.class);
 
                                       list.add(notesListobj);
-                                      mRecyclerView = (RecyclerView) view.findViewById(R.id.recyclernotes);
+                                      mRecyclerView = (RecyclerView) rootView.findViewById(R.id.recyclernotes);
                                       mRecyclerView.setHasFixedSize(true);
 
                                       mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -215,7 +227,7 @@ public class Notes extends Fragment implements AdapterView.OnItemSelectedListene
                     );
         //Firebase RealTime Database
 
-        return view;
+        return rootView;
 
     }
 
@@ -231,5 +243,32 @@ public class Notes extends Fragment implements AdapterView.OnItemSelectedListene
     }
 
 
+    @Override
+    public void onResume() {
+        Log.e("apkflow","onResume CallLog_Fragment");
+        super.onResume();
+        rootView.setFocusableInTouchMode(true);
+        rootView.requestFocus();
+        rootView.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if (event.getAction() == KeyEvent.ACTION_UP && keyCode == KeyEvent.KEYCODE_BACK){
+                    Log.e("apkflow","CallLog_Fragment back Clicked");
 
+                    if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
+
+                        drawerLayout.closeDrawer(GravityCompat.START);
+
+                    }
+                    else {
+                        Log.e("apkflow","popBack");
+                        getActivity().getSupportFragmentManager().popBackStack();
+                        activity.setTitle("KUCC");
+                    }
+                    return true;
+                }
+                return false;
+            }
+        });
+    }
 }

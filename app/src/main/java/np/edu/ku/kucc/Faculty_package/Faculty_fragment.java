@@ -8,7 +8,11 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -50,6 +54,9 @@ public class Faculty_fragment extends Fragment {
     private ProgressDialog loading;
     JSONArray jsonArray;
     JSONObject jsonObject;
+    View rootView;
+    DrawerLayout drawerLayout;
+    ActionBarDrawerToggle abdToggle;
     public Faculty_fragment() {
         // Required empty public constructor
     }
@@ -59,17 +66,20 @@ public class Faculty_fragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View rootview=inflater.inflate(R.layout.fragment_faculty, container, false);
-        context = rootview.getContext();
+        rootView=inflater.inflate(R.layout.fragment_faculty, container, false);
+        context = rootView.getContext();
         activity=this.getActivity();
         activity.setTitle("Faculty");
-
+        drawerLayout = activity.findViewById(R.id.drawer_layout);
+        abdToggle = new ActionBarDrawerToggle(activity, drawerLayout, R.string.openDrawer, R.string.closeDrawer);
+        drawerLayout.addDrawerListener(abdToggle);
+        abdToggle.syncState();
             BackgroundTask backgroundTask=new BackgroundTask(context);
             backgroundTask.execute("get_info");
 
 
-        list = (ListView) rootview.findViewById(R.id.faculty_list);
-        return rootview;
+        list = (ListView) rootView.findViewById(R.id.faculty_list);
+        return rootView;
     }
 
     public void getData(final Context cont) {
@@ -88,7 +98,7 @@ public class Faculty_fragment extends Fragment {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         if (error != null && error.getMessage() != null) {
-//                            Toast.makeText(context, error.getMessage().toString(), Toast.LENGTH_LONG).show();
+                            Toast.makeText(cont, error.getMessage(), Toast.LENGTH_LONG).show();
                         }
 
                         else{
@@ -167,23 +177,36 @@ public class Faculty_fragment extends Fragment {
 
             }
         }
-//        BackgroundTask backgroundTask=new BackgroundTask(context);
-//        backgroundTask.execute("get_info");
+
 
     }
 
-    public static boolean CheckInternetConnection(Context context) {
-        ConnectivityManager connectivity =
-                (ConnectivityManager) context.getSystemService(
-                        Context.CONNECTIVITY_SERVICE);
-        if (connectivity != null) {
-            NetworkInfo[] info = connectivity.getAllNetworkInfo();
-            if (info != null)
-                for (int i = 0; i < info.length; i++)
-                    if (info[i].getState() == NetworkInfo.State.CONNECTED) {
-                        return true;
+    @Override
+    public void onResume() {
+        Log.e("apkflow","onResume CallLog_Fragment");
+        super.onResume();
+        rootView.setFocusableInTouchMode(true);
+        rootView.requestFocus();
+        rootView.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if (event.getAction() == KeyEvent.ACTION_UP && keyCode == KeyEvent.KEYCODE_BACK){
+                    Log.e("apkflow","CallLog_Fragment back Clicked");
+
+                    if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
+
+                        drawerLayout.closeDrawer(GravityCompat.START);
+
                     }
-        }
-        return false;
+                    else {
+                        Log.e("apkflow","popBack");
+                        getActivity().getSupportFragmentManager().popBackStack();
+                        activity.setTitle("KUCC");
+                    }
+                    return true;
+                }
+                return false;
+            }
+        });
     }
 }
