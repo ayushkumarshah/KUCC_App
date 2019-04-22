@@ -67,10 +67,7 @@ public class KUCCBoard_Fragment extends Fragment {
         context = rootView.getContext();
         activity = this.getActivity();
         activity.setTitle("KUCC Board");
-        drawerLayout = activity.findViewById(R.id.drawer_layout);
-        abdToggle = new ActionBarDrawerToggle(activity, drawerLayout, R.string.openDrawer, R.string.closeDrawer);
-        drawerLayout.addDrawerListener(abdToggle);
-        abdToggle.syncState();
+
         BackgroundTask backgroundTask = new BackgroundTask(context);
         backgroundTask.execute("get_info");
 
@@ -190,16 +187,11 @@ public class KUCCBoard_Fragment extends Fragment {
                 if (event.getAction() == KeyEvent.ACTION_UP && keyCode == KeyEvent.KEYCODE_BACK){
                     Log.e("apkflow","CallLog_Fragment back Clicked");
 
-                    if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
 
-                        drawerLayout.closeDrawer(GravityCompat.START);
-
-                    }
-                    else {
                         Log.e("apkflow","popBack");
                         getActivity().getSupportFragmentManager().popBackStack();
                         activity.setTitle("KUCC");
-                    }
+
                     return true;
                 }
                 return false;

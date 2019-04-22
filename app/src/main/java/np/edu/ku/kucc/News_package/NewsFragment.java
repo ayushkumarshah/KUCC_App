@@ -53,10 +53,8 @@ public class NewsFragment extends Fragment {
     Activity activity;
     ListView list;
     View rootView;
-DrawerLayout drawerLayout;
     boolean doubleBackToExitPressedOnce = false;
 
-    ActionBarDrawerToggle abdToggle;
 
     JSONArray jsonArray;
     JSONObject jsonObject;
@@ -74,10 +72,10 @@ DrawerLayout drawerLayout;
         context = rootView.getContext();
         activity = this.getActivity();
         activity.setTitle("News");
-        drawerLayout = activity.findViewById(R.id.drawer_layout);
+       /* drawerLayout = activity.findViewById(R.id.drawer_layout);
         abdToggle = new ActionBarDrawerToggle(activity, drawerLayout, R.string.openDrawer, R.string.closeDrawer);
         drawerLayout.addDrawerListener(abdToggle);
-        abdToggle.syncState();
+        abdToggle.syncState();*/
        /* if (CheckInternetConnection(context))
         {
 
@@ -211,11 +209,11 @@ DrawerLayout drawerLayout;
                 if (event.getAction() == KeyEvent.ACTION_UP && keyCode == KeyEvent.KEYCODE_BACK){
                     Log.e("apkflow","CallLog_Fragment back Clicked");
 
-                    if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
+                    /*if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
 
                         drawerLayout.closeDrawer(GravityCompat.START);
 
-                    }
+                    }*/
                     if (doubleBackToExitPressedOnce) {
                        /* Intent intent = new Intent(Intent.ACTION_MAIN);
                         intent.addCategory(Intent.CATEGORY_HOME);

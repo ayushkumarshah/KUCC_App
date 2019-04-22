@@ -55,11 +55,6 @@ Activity activity;
         list = new ArrayList<>();
         activity=this.getActivity();
         activity.setTitle("Events");
-
-        drawerLayout = activity.findViewById(R.id.drawer_layout);
-        abdToggle = new ActionBarDrawerToggle(activity, drawerLayout, R.string.openDrawer, R.string.closeDrawer);
-        drawerLayout.addDrawerListener(abdToggle);
-        abdToggle.syncState();
         FirebaseApp.initializeApp(getContext());
         //Retrieve From Database
         mDatabase = FirebaseDatabase.getInstance().getReference("Events");
@@ -112,16 +107,11 @@ Activity activity;
                 if (event.getAction() == KeyEvent.ACTION_UP && keyCode == KeyEvent.KEYCODE_BACK){
                     Log.e("apkflow","CallLog_Fragment back Clicked");
 
-                    if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
 
-                        drawerLayout.closeDrawer(GravityCompat.START);
-
-                    }
-                    else {
                         Log.e("apkflow","popBack");
                         getActivity().getSupportFragmentManager().popBackStack();
                         activity.setTitle("KUCC");
-                    }
+
                     return true;
                 }
                 return false;

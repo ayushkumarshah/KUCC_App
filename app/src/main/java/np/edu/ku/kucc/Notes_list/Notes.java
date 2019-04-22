@@ -77,10 +77,10 @@ public class Notes extends Fragment implements AdapterView.OnItemSelectedListene
 
         db.setFirestoreSettings(settings);
         rootView=inflater.inflate(R.layout.fragment_notes, container, false);
-        drawerLayout = activity.findViewById(R.id.drawer_layout);
+        /*drawerLayout = activity.findViewById(R.id.drawer_layout);
         abdToggle = new ActionBarDrawerToggle(activity, drawerLayout, R.string.openDrawer, R.string.closeDrawer);
         drawerLayout.addDrawerListener(abdToggle);
-        abdToggle.syncState();
+        abdToggle.syncState();*/
         mRecyclerView=(RecyclerView) rootView.findViewById(R.id.recyclernotes);
 
         mRecyclerView.setHasFixedSize(true);
@@ -252,16 +252,11 @@ public class Notes extends Fragment implements AdapterView.OnItemSelectedListene
                 if (event.getAction() == KeyEvent.ACTION_UP && keyCode == KeyEvent.KEYCODE_BACK){
                     Log.e("apkflow","CallLog_Fragment back Clicked");
 
-                    if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
 
-                        drawerLayout.closeDrawer(GravityCompat.START);
-
-                    }
-                    else {
                         Log.e("apkflow","popBack");
                         getActivity().getSupportFragmentManager().popBackStack();
                         activity.setTitle("KUCC");
-                    }
+
                     return true;
                 }
                 return false;
