@@ -19,14 +19,18 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreSettings;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.UUID;
 
 import np.edu.ku.kucc.R;
 import np.edu.ku.kucc.Routine.RecyclerViewAdapter;
@@ -39,6 +43,9 @@ import static java.lang.Integer.parseInt;
  * A simple {@link Fragment} subclass.
  */
 public class Register extends Fragment {
+    String keys;
+    private boolean update;
+    private String id;
     private String mTime;
     private String mDate;
     private String mTitle, mVenue, mRoomNo, mInformation;
@@ -73,9 +80,13 @@ public class Register extends Fragment {
         mTimeText = (EditText) view.findViewById(R.id.editText9);
         btnAddEvent = (Button) view.findViewById(R.id.button3);
 
+       // update=true;
+        id="1";
+
         mEventList=new ArrayList<>();
 
-
+     update =getArguments().getBoolean("update");
+     Toast.makeText(getActivity(),id+update, Toast.LENGTH_LONG).show();
 
 
         mTimeText.setOnClickListener(new View.OnClickListener() {
@@ -119,31 +130,90 @@ public class Register extends Fragment {
         mDatabase = FirebaseDatabase.getInstance().getReference("Events");
 
         //addevent
-        btnAddEvent.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mTitle=mTitleText.getText().toString();
-                mVenue=mVenueText.getText().toString();
-                mRoomNo=mRoomNoText.getText().toString();
-                mInformation=mInformationText.getText().toString();
-                mContact = Integer.parseInt(mContactText.getText().toString());
-                mDate=mDateText.getText().toString();
-                mTime=mTimeText.getText().toString();
+        if (update==false) {
+            btnAddEvent.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
 
-                EventModel mEventModelObj = new EventModel(1, mTitle, mVenue, mRoomNo, mInformation, mContact, mDate, mTime);
-                mEventList.add(mEventModelObj);
-                String userId = mDatabase.push().getKey();
-                // creating user object
+                    String id = UUID.randomUUID().toString();
+                    mTitle = mTitleText.getText().toString();
+                    mVenue = mVenueText.getText().toString();
+                    mRoomNo = mRoomNoText.getText().toString();
+                    mInformation = mInformationText.getText().toString();
+                    mContact = Integer.parseInt(mContactText.getText().toString());
+                    mDate = mDateText.getText().toString();
+                    mTime = mTimeText.getText().toString();
+
+                    EventModel mEventModelObj = new EventModel(id, mTitle, mVenue, mRoomNo, mInformation, mContact, mDate, mTime);
+                    //mEventList.add(mEventModelObj);
+                    String userId = mDatabase.push().getKey();
+                    // creating user object
 
 // pushing user to 'users' node using the userId
-                mDatabase.child(userId).setValue(mEventModelObj);
-                Toast.makeText(getContext(),"SUCCESSFULLY ADDED EVENT", Toast.LENGTH_LONG).show();
-                changeFragment(new AdminProfile());
+                    mDatabase.child(userId).setValue(mEventModelObj);
+                    Toast.makeText(getContext(), "SUCCESSFULLY ADDED EVENT", Toast.LENGTH_LONG).show();
+                    changeFragment(new AdminProfile());
+
+
+                }
+            });
+        }
+        //UPDATE
+        else {
+            mTitleText.setText(getArguments().getString("EventTitle"));
+            mVenueText.setText(getArguments().getString("EventVenue"));
+            mRoomNoText.setText(getArguments().getString("EventRoomNo"));
+            mInformationText.setText(getArguments().getString("EventInformation"));
+            mContactText.setText(String.valueOf(getArguments().getInt("EventContact")));
+            mDateText.setText(getArguments().getString("EventDate"));
+            mTimeText.setText(getArguments().getString("EventTime"));
+
+
+            btnAddEvent.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    id=getArguments().getString("id");
+                    mTitle = mTitleText.getText().toString();
+                    mVenue = mVenueText.getText().toString();
+                    mRoomNo = mRoomNoText.getText().toString();
+                    mInformation = mInformationText.getText().toString();
+                    mContact = Integer.parseInt(mContactText.getText().toString());
+                    mDate = mDateText.getText().toString();
+                    mTime = mTimeText.getText().toString();
+                    final EventModel mEventModelObj = new EventModel(id, mTitle, mVenue, mRoomNo, mInformation, mContact, mDate, mTime);
+
+                    DatabaseReference ref=FirebaseDatabase.getInstance().getReference().child("Events");
+                    ref.orderByChild("mEventID").equalTo(id).addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            for(DataSnapshot datas: dataSnapshot.getChildren()){
+                                keys=datas.getKey();
+                                break;
+
+                            }
+//                            Toast.makeText(getActivity(),keys,Toast.LENGTH_LONG).show();
+                            mDatabase.child(keys).setValue(mEventModelObj);
+
+
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
+                        }
+                    });
 
 
 
-            }
-        });
+
+
+                    changeFragment(new AdminProfile());
+                }
+
+            });
+
+
+        }
 
 
         return view;

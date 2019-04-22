@@ -83,7 +83,11 @@ public class AdminProfile extends Fragment {
         btnFloatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                changeFragment(new Register());
+                Register register = new Register();
+                Bundle args = new Bundle();
+                args.putBoolean("update", false);
+                register.setArguments(args);
+                changeFragment(register);
             }
         });
 
@@ -94,8 +98,10 @@ public class AdminProfile extends Fragment {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
+                    list.clear();
 
                     for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
+
                         //routinelist routinelistobj = dataSnapshot1.getValue(routinelist.class);
 
                         EventModel eventModel = dataSnapshot1.getValue(EventModel.class);
@@ -106,9 +112,9 @@ public class AdminProfile extends Fragment {
                         list.add(eventModel);
                         mRecyclerView=(RecyclerView) rootView.findViewById(R.id.recyclerView);
                         mRecyclerView.setHasFixedSize(true);
-                        mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+                        mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
                         //creating recyclerview adapter
-                        RecyclerViewAdapterEvent adapter= new RecyclerViewAdapterEvent(getContext(),list);
+                        RecyclerViewAdapterEvent adapter= new RecyclerViewAdapterEvent(getActivity(),list);
 
                         //setting adapter to recyclerview
                         mRecyclerView.setAdapter(adapter);
@@ -124,6 +130,7 @@ public class AdminProfile extends Fragment {
                 Log.w(TAG, "Failed to read value.", error.toException());
             }
         });
+
 
         return  rootView;
     }
@@ -158,4 +165,5 @@ public class AdminProfile extends Fragment {
             }
         });
     }
+
 }

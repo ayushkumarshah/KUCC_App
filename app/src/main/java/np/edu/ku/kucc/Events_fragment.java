@@ -75,9 +75,9 @@ Activity activity;
                         list.add(eventModel);
                         mRecyclerView=(RecyclerView) rootView.findViewById(R.id.recyclerViewEvents);
                         mRecyclerView.setHasFixedSize(true);
-                        mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+                        mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
                         //creating recyclerview adapter
-                        RecyclerViewAdapterEvent adapter= new RecyclerViewAdapterEvent(getContext(),list);
+                        RecyclerViewAdapterEvent adapter= new RecyclerViewAdapterEvent(getActivity(),list);
 
                         //setting adapter to recyclerview
                         mRecyclerView.setAdapter(adapter);

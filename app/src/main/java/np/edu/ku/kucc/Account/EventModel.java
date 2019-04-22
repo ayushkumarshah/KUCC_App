@@ -1,13 +1,13 @@
 package np.edu.ku.kucc.Account;
 
 public class EventModel {
-    private String mTitle, mVenue, mRoomNo, mInformation, mDate, mTime;
-    private int mEventID, mContact;
+    private String mEventID, mTitle, mVenue, mRoomNo, mInformation, mDate, mTime;
+    private int mContact;
 
     public EventModel() {
     }
 
-    public EventModel(int mEventID, String mTitle, String mVenue, String mRoomNo, String mInformation, int mContact, String mDate, String mTime) {
+    public EventModel(String mEventID, String mTitle, String mVenue, String mRoomNo, String mInformation, int mContact, String mDate, String mTime) {
         this.mEventID = mEventID;
         this.mTitle = mTitle;
         this.mVenue = mVenue;
@@ -66,11 +66,11 @@ public class EventModel {
         this.mTime = mTime;
     }
 
-    public int getmEventID() {
+    public String getmEventID() {
         return mEventID;
     }
 
-    public void setmEventID(int mEventID) {
+    public void setmEventID(String mEventID) {
         this.mEventID = mEventID;
     }
 
